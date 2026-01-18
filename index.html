@@ -411,10 +411,11 @@
             overflow: hidden;
             border: 2px solid var(--ink-medium);
             box-shadow:
-                0 0 0 6px var(--parchment-dark),
-                0 0 0 8px var(--ink-medium),
-                0 10px 30px rgba(61, 40, 23, 0.2);
-            background: var(--ink-dark);
+                0 0 0 4px var(--parchment-dark),
+                0 0 0 6px var(--ink-medium),
+                0 8px 20px rgba(61, 40, 23, 0.2);
+            background: var(--cream);
+            border-radius: 8px;
         }
 
         .carousel-track {
@@ -429,21 +430,22 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: var(--ink-dark);
+            background: var(--cream);
+            min-height: 400px;
         }
 
         .carousel-slide img {
             width: 100%;
             height: auto;
-            max-height: 600px;
+            max-height: 500px;
             object-fit: contain;
             display: block;
-            filter: sepia(0.05) contrast(1.05);
+            filter: contrast(1.05);
             transition: filter 0.3s ease;
         }
 
         .carousel-slide:hover img {
-            filter: sepia(0) contrast(1);
+            filter: contrast(1.1);
         }
 
         .carousel-button {
@@ -699,11 +701,16 @@
             }
 
             .carousel-container {
-                max-width: 450px;
+                max-width: 480px;
+                border-radius: 10px;
+            }
+
+            .carousel-slide {
+                min-height: 450px;
             }
 
             .carousel-slide img {
-                max-height: 650px;
+                max-height: 600px;
             }
 
             .carousel-button {
@@ -797,11 +804,20 @@
             }
 
             .carousel-container {
-                max-width: 500px;
+                max-width: 520px;
+                border-radius: 12px;
+                box-shadow:
+                    0 0 0 6px var(--parchment-dark),
+                    0 0 0 9px var(--ink-medium),
+                    0 12px 35px rgba(61, 40, 23, 0.25);
+            }
+
+            .carousel-slide {
+                min-height: 500px;
             }
 
             .carousel-slide img {
-                max-height: 700px;
+                max-height: 650px;
             }
 
             .carousel-button {
@@ -953,12 +969,21 @@
             }
 
             .carousel-container {
-                max-width: 540px;
+                max-width: 560px;
                 border-width: 3px;
+                border-radius: 15px;
+                box-shadow:
+                    0 0 0 8px var(--parchment-dark),
+                    0 0 0 11px var(--ink-medium),
+                    0 15px 40px rgba(61, 40, 23, 0.25);
+            }
+
+            .carousel-slide {
+                min-height: 550px;
             }
 
             .carousel-slide img {
-                max-height: 750px;
+                max-height: 700px;
             }
 
             .carousel-button {
@@ -1252,7 +1277,7 @@
     <!-- Footer -->
     <footer>
         <div class="container">
-            <p>&copy; 2024 Método Historia - Clases Particulares de Historia Online</p>
+            <p>&copy; 2026 Método Historia - Clases Particulares de Historia Online</p>
             <p>📱 WhatsApp: +54 351 715-8688</p>
             <p style="font-size: 0.85em; opacity: 0.7; margin-top: 10px;">v1.0.0</p>
         </div>
