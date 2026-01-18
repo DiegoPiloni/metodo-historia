@@ -509,42 +509,55 @@
 
     <!-- Scripts -->
     <script>
-        // Carousel functionality
+        // Carousel constants
+        const AUTO_ADVANCE_INTERVAL_MS = 5000;
+        const SWIPE_THRESHOLD_PX = 50;
+
+        // Carousel state
         let currentSlide = 0;
         const track = document.getElementById('carouselTrack');
         const slides = document.querySelectorAll('.carousel-slide');
         const totalSlides = slides.length;
         const indicatorsContainer = document.getElementById('indicators');
 
-        // Create indicators
-        for (let i = 0; i < totalSlides; i++) {
-            const indicator = document.createElement('div');
-            indicator.classList.add('indicator');
-            if (i === 0) indicator.classList.add('active');
-            indicator.onclick = () => goToSlide(i);
-            indicatorsContainer.appendChild(indicator);
+        // Initialize carousel indicators
+        function initializeIndicators() {
+            for (let i = 0; i < totalSlides; i++) {
+                const indicator = document.createElement('div');
+                indicator.classList.add('indicator');
+
+                if (i === 0) {
+                    indicator.classList.add('active');
+                }
+
+                indicator.onclick = function() {
+                    goToSlide(i);
+                };
+
+                indicatorsContainer.appendChild(indicator);
+            }
         }
 
         const indicators = document.querySelectorAll('.indicator');
 
         function updateCarousel() {
-            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+            const offsetPercentage = currentSlide * 100;
+            track.style.transform = `translateX(-${offsetPercentage}%)`;
 
-            indicators.forEach((indicator, index) => {
-                if (index === currentSlide) {
-                    indicator.classList.add('active');
-                } else {
-                    indicator.classList.remove('active');
-                }
+            indicators.forEach(function(indicator, index) {
+                indicator.classList.toggle('active', index === currentSlide);
             });
         }
 
         function moveCarousel(direction) {
             currentSlide += direction;
 
+            // Handle carousel wrapping
             if (currentSlide < 0) {
                 currentSlide = totalSlides - 1;
-            } else if (currentSlide >= totalSlides) {
+            }
+
+            if (currentSlide >= totalSlides) {
                 currentSlide = 0;
             }
 
@@ -556,37 +569,45 @@
             updateCarousel();
         }
 
-        // Auto-advance carousel every 5 seconds
-        setInterval(() => {
+        function handleTouchStart(event) {
+            touchStartX = event.changedTouches[0].screenX;
+        }
+
+        function handleTouchEnd(event) {
+            touchEndX = event.changedTouches[0].screenX;
+            handleSwipe();
+        }
+
+        function handleSwipe() {
+            const swipeDistance = touchStartX - touchEndX;
+            const isSwipeSignificant = Math.abs(swipeDistance) > SWIPE_THRESHOLD_PX;
+
+            if (!isSwipeSignificant) {
+                return;
+            }
+
+            if (swipeDistance > 0) {
+                moveCarousel(1);
+            } else {
+                moveCarousel(-1);
+            }
+        }
+
+        // Initialize carousel
+        initializeIndicators();
+
+        // Auto-advance carousel
+        setInterval(function() {
             moveCarousel(1);
-        }, 5000);
+        }, AUTO_ADVANCE_INTERVAL_MS);
 
         // Touch/Swipe support
         let touchStartX = 0;
         let touchEndX = 0;
         const carouselContainer = document.querySelector('.carousel-container');
 
-        carouselContainer.addEventListener('touchstart', (e) => {
-            touchStartX = e.changedTouches[0].screenX;
-        }, { passive: true });
-
-        carouselContainer.addEventListener('touchend', (e) => {
-            touchEndX = e.changedTouches[0].screenX;
-            handleSwipe();
-        }, { passive: true });
-
-        function handleSwipe() {
-            const swipeThreshold = 50;
-            const diff = touchStartX - touchEndX;
-
-            if (Math.abs(diff) > swipeThreshold) {
-                if (diff > 0) {
-                    moveCarousel(1);
-                } else {
-                    moveCarousel(-1);
-                }
-            }
-        }
+        carouselContainer.addEventListener('touchstart', handleTouchStart, { passive: true });
+        carouselContainer.addEventListener('touchend', handleTouchEnd, { passive: true });
     </script>
 </body>
 </html>
