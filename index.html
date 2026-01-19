@@ -721,6 +721,28 @@
             margin-bottom: 8px;
         }
 
+        .footer-instagram {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Spectral', serif;
+            font-size: 0.95rem;
+            color: var(--aged-gold);
+            text-decoration: none;
+            margin-top: 8px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-instagram:hover {
+            color: var(--parchment-cream);
+        }
+
+        .footer-instagram-icon {
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+        }
+
         .footer-version {
             font-size: 0.8rem;
             color: var(--burnt-umber);
@@ -1025,6 +1047,10 @@
         <div class="footer-content">
             <p class="footer-brand">Método Historia — Clases Particulares de Historia Online</p>
             <p class="footer-contact">📱 WhatsApp: +54 351 715-8688</p>
+            <a href="https://www.instagram.com/profe.particular.historia/" class="footer-instagram" target="_blank">
+                <img src="assets/images/instagram.png" alt="Instagram" class="footer-instagram-icon">
+                @profe.particular.historia
+            </a>
             <p class="footer-version">v1.0.0</p>
         </div>
     </footer>
