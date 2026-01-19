@@ -482,32 +482,7 @@
         .carousel-track {
             display: flex;
             gap: 24px;
-            animation: infiniteScroll 25s linear infinite;
             width: max-content;
-            transition: transform 0.4s ease-out;
-        }
-
-        .carousel-track.manual {
-            animation: none;
-        }
-
-        .carousel-track.paused {
-            animation-play-state: paused;
-        }
-
-        @media (min-width: 768px) {
-            .carousel-track:hover {
-                animation-play-state: paused;
-            }
-        }
-
-        @keyframes infiniteScroll {
-            0% {
-                transform: translateX(0);
-            }
-            100% {
-                transform: translateX(-33.33%);
-            }
         }
 
         .carousel-slide {
@@ -1265,59 +1240,58 @@
         const carouselTrack = document.querySelector('.carousel-track');
         const prevBtn = document.querySelector('.carousel-arrow-prev');
         const nextBtn = document.querySelector('.carousel-arrow-next');
-        let resumeTimeout = null;
 
         if (carouselTrack) {
-            const slideWidth = carouselTrack.querySelector('.carousel-slide')?.offsetWidth + 24 || 304; // width + gap
-            const totalSlides = 5; // Original number of slides
+            const slideWidth = carouselTrack.querySelector('.carousel-slide')?.offsetWidth + 24 || 304;
+            const totalSlides = 5;
             const maxOffset = slideWidth * totalSlides;
+            const speed = 0.5; // pixels per frame (~30px per second)
 
-            function getCurrentOffset() {
-                const transform = window.getComputedStyle(carouselTrack).transform;
-                if (transform === 'none') return 0;
-                const matrix = new DOMMatrix(transform);
-                return matrix.m41;
+            let currentOffset = 0;
+            let isManualMove = false;
+            let isPaused = false;
+            let resumeTimeout = null;
+            let animationId = null;
+
+            function animate() {
+                if (!isPaused && !isManualMove) {
+                    currentOffset -= speed;
+                    if (currentOffset <= -maxOffset) {
+                        currentOffset = 0;
+                    }
+                    carouselTrack.style.transform = `translateX(${currentOffset}px)`;
+                }
+                animationId = requestAnimationFrame(animate);
             }
 
-            function resumeAutoScroll() {
-                clearTimeout(resumeTimeout);
-                resumeTimeout = setTimeout(() => {
-                    carouselTrack.classList.remove('manual');
-                    carouselTrack.style.transform = '';
-                }, 3000);
-            }
+            // Start animation
+            animate();
 
-            // Arrow navigation
-            prevBtn?.addEventListener('click', () => {
-                let currentOffset = getCurrentOffset();
-                carouselTrack.classList.add('manual');
-                currentOffset += slideWidth;
+            function manualMove(delta) {
+                isManualMove = true;
+                carouselTrack.style.transition = 'transform 0.4s ease-out';
+                currentOffset += delta;
                 if (currentOffset > 0) {
                     currentOffset = -maxOffset + slideWidth;
-                }
-                carouselTrack.style.transform = `translateX(${currentOffset}px)`;
-                resumeAutoScroll();
-            });
-
-            nextBtn?.addEventListener('click', () => {
-                let currentOffset = getCurrentOffset();
-                carouselTrack.classList.add('manual');
-                currentOffset -= slideWidth;
-                if (currentOffset < -maxOffset) {
+                } else if (currentOffset <= -maxOffset) {
                     currentOffset = 0;
                 }
                 carouselTrack.style.transform = `translateX(${currentOffset}px)`;
-                resumeAutoScroll();
-            });
+
+                clearTimeout(resumeTimeout);
+                resumeTimeout = setTimeout(() => {
+                    carouselTrack.style.transition = 'none';
+                    isManualMove = false;
+                }, 1000);
+            }
+
+            prevBtn?.addEventListener('click', () => manualMove(slideWidth));
+            nextBtn?.addEventListener('click', () => manualMove(-slideWidth));
 
             // Mobile touch pause
             if (window.innerWidth < 768) {
-                carouselTrack.addEventListener('touchstart', () => {
-                    carouselTrack.classList.add('paused');
-                });
-                carouselTrack.addEventListener('touchend', () => {
-                    carouselTrack.classList.remove('paused');
-                });
+                carouselTrack.addEventListener('touchstart', () => { isPaused = true; });
+                carouselTrack.addEventListener('touchend', () => { isPaused = false; });
             }
         }
 
