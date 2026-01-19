@@ -1335,26 +1335,37 @@
 
         // Carousel functionality
         const carouselTrack = document.querySelector('.carousel-track');
+        const carouselContainer = document.querySelector('.carousel-container');
         const prevBtn = document.querySelector('.carousel-arrow-prev');
         const nextBtn = document.querySelector('.carousel-arrow-next');
 
-        if (carouselTrack) {
-            const slideWidth = carouselTrack.querySelector('.carousel-slide')?.offsetWidth + 24 || 304;
+        if (carouselTrack && carouselContainer) {
             const totalSlides = 5;
-            const maxOffset = slideWidth * totalSlides;
+            const gap = 24;
             const speed = 0.5; // pixels per frame (~30px per second)
 
+            let currentIndex = 0;
             let currentOffset = 0;
             let isManualMove = false;
             let isPaused = false;
             let resumeTimeout = null;
             let animationId = null;
 
+            function getSlideWidth() {
+                const slide = carouselTrack.querySelector('.carousel-slide');
+                return slide ? slide.offsetWidth + gap : 304;
+            }
+
+            function getMaxOffset() {
+                return getSlideWidth() * totalSlides;
+            }
+
             function animate() {
                 if (!isPaused && !isManualMove) {
                     currentOffset -= speed;
-                    if (currentOffset <= -maxOffset) {
+                    if (currentOffset <= -getMaxOffset()) {
                         currentOffset = 0;
+                        currentIndex = 0;
                     }
                     carouselTrack.style.transform = `translateX(${currentOffset}px)`;
                 }
@@ -1364,15 +1375,23 @@
             // Start animation
             animate();
 
-            function manualMove(delta) {
+            function goToSlide(direction) {
                 isManualMove = true;
-                carouselTrack.style.transition = 'transform 0.4s ease-out';
-                currentOffset += delta;
-                if (currentOffset > 0) {
-                    currentOffset = -maxOffset + slideWidth;
-                } else if (currentOffset <= -maxOffset) {
-                    currentOffset = 0;
+                const slideWidth = getSlideWidth();
+                const maxOffset = getMaxOffset();
+
+                currentIndex += direction;
+
+                // Handle wrapping
+                if (currentIndex < 0) {
+                    currentIndex = totalSlides - 1;
+                } else if (currentIndex >= totalSlides) {
+                    currentIndex = 0;
                 }
+
+                currentOffset = -currentIndex * slideWidth;
+
+                carouselTrack.style.transition = 'transform 0.4s ease-out';
                 carouselTrack.style.transform = `translateX(${currentOffset}px)`;
 
                 clearTimeout(resumeTimeout);
@@ -1382,41 +1401,38 @@
                 }, 500);
             }
 
-            prevBtn?.addEventListener('click', () => manualMove(slideWidth));
-            nextBtn?.addEventListener('click', () => manualMove(-slideWidth));
+            prevBtn?.addEventListener('click', () => goToSlide(-1));
+            nextBtn?.addEventListener('click', () => goToSlide(1));
 
             // Mobile touch swipe
-            if (window.innerWidth < 768) {
-                let touchStartX = 0;
-                let touchEndX = 0;
-                const minSwipeDistance = 50;
+            let touchStartX = 0;
+            const minSwipeDistance = 50;
 
-                carouselTrack.addEventListener('touchstart', (e) => {
-                    isPaused = true;
-                    touchStartX = e.touches[0].clientX;
-                });
+            carouselTrack.addEventListener('touchstart', (e) => {
+                isPaused = true;
+                touchStartX = e.touches[0].clientX;
+            }, { passive: true });
 
-                carouselTrack.addEventListener('touchend', (e) => {
-                    touchEndX = e.changedTouches[0].clientX;
-                    const swipeDistance = touchEndX - touchStartX;
+            carouselTrack.addEventListener('touchend', (e) => {
+                const touchEndX = e.changedTouches[0].clientX;
+                const swipeDistance = touchEndX - touchStartX;
 
-                    if (Math.abs(swipeDistance) >= minSwipeDistance) {
-                        if (swipeDistance > 0) {
-                            // Swiped right → go to previous
-                            manualMove(slideWidth);
-                        } else {
-                            // Swiped left → go to next
-                            manualMove(-slideWidth);
-                        }
+                if (Math.abs(swipeDistance) >= minSwipeDistance) {
+                    if (swipeDistance > 0) {
+                        // Swiped right → go to previous
+                        goToSlide(-1);
+                    } else {
+                        // Swiped left → go to next
+                        goToSlide(1);
                     }
-                    isPaused = false;
-                });
-            } else {
-                // Desktop mouse hold to pause
-                carouselTrack.addEventListener('mousedown', () => { isPaused = true; });
-                carouselTrack.addEventListener('mouseup', () => { isPaused = false; });
-                carouselTrack.addEventListener('mouseleave', () => { isPaused = false; });
-            }
+                }
+                isPaused = false;
+            }, { passive: true });
+
+            // Desktop mouse hold to pause
+            carouselTrack.addEventListener('mousedown', () => { isPaused = true; });
+            carouselTrack.addEventListener('mouseup', () => { isPaused = false; });
+            carouselTrack.addEventListener('mouseleave', () => { isPaused = false; });
         }
 
         // Activate first timeline marker
