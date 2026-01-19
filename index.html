@@ -1367,10 +1367,32 @@
             prevBtn?.addEventListener('click', () => manualMove(slideWidth));
             nextBtn?.addEventListener('click', () => manualMove(-slideWidth));
 
-            // Mobile touch pause
+            // Mobile touch swipe
             if (window.innerWidth < 768) {
-                carouselTrack.addEventListener('touchstart', () => { isPaused = true; });
-                carouselTrack.addEventListener('touchend', () => { isPaused = false; });
+                let touchStartX = 0;
+                let touchEndX = 0;
+                const minSwipeDistance = 50;
+
+                carouselTrack.addEventListener('touchstart', (e) => {
+                    isPaused = true;
+                    touchStartX = e.touches[0].clientX;
+                });
+
+                carouselTrack.addEventListener('touchend', (e) => {
+                    touchEndX = e.changedTouches[0].clientX;
+                    const swipeDistance = touchEndX - touchStartX;
+
+                    if (Math.abs(swipeDistance) >= minSwipeDistance) {
+                        if (swipeDistance > 0) {
+                            // Swiped right → go to previous
+                            manualMove(slideWidth);
+                        } else {
+                            // Swiped left → go to next
+                            manualMove(-slideWidth);
+                        }
+                    }
+                    isPaused = false;
+                });
             }
         }
 
