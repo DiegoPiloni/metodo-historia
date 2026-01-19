@@ -462,16 +462,19 @@
 
         /* Infinite Carousel */
         .carousel-container {
-            width: 100%;
+            flex: 1;
             overflow: hidden;
             padding: 20px 0;
+            min-width: 0;
+        }
+
+        .carousel-wrapper {
             opacity: 0;
             transform: translateY(40px);
             transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
         }
 
-        .carousel-container.visible {
+        .carousel-wrapper.visible {
             opacity: 1;
             transform: translateY(0);
         }
@@ -527,13 +530,19 @@
             display: block;
         }
 
+        /* Carousel Wrapper for arrows outside */
+        .carousel-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0 8px;
+        }
+
         /* Carousel Arrows */
         .carousel-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 44px;
-            height: 44px;
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
             background: var(--parchment-warm);
             border: 1px solid var(--aged-gold);
             border-radius: 50%;
@@ -541,7 +550,6 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            z-index: 10;
             color: var(--burnt-umber);
             opacity: 0.7;
             transition: all 0.3s ease;
@@ -552,33 +560,22 @@
             opacity: 1;
             background: var(--parchment-cream);
             box-shadow: 0 4px 16px var(--shadow-warm);
-            transform: translateY(-50%) scale(1.05);
+            transform: scale(1.1);
         }
 
         .carousel-arrow:active {
-            transform: translateY(-50%) scale(0.95);
-        }
-
-        .carousel-arrow-prev {
-            left: 8px;
-        }
-
-        .carousel-arrow-next {
-            right: 8px;
+            transform: scale(0.95);
         }
 
         @media (min-width: 768px) {
+            .carousel-wrapper {
+                gap: 16px;
+                padding: 0 16px;
+            }
+
             .carousel-arrow {
                 width: 48px;
                 height: 48px;
-            }
-
-            .carousel-arrow-prev {
-                left: 16px;
-            }
-
-            .carousel-arrow-next {
-                right: 16px;
             }
         }
 
@@ -1094,18 +1091,14 @@
                 <h2 class="section-title">Lo que dicen <span class="italic">los alumnos</span></h2>
             </header>
 
-            <div class="carousel-container">
+            <div class="carousel-wrapper">
                 <button class="carousel-arrow carousel-arrow-prev" aria-label="Anterior">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <polyline points="15 18 9 12 15 6"></polyline>
                     </svg>
                 </button>
-                <button class="carousel-arrow carousel-arrow-next" aria-label="Siguiente">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="9 6 15 12 9 18"></polyline>
-                    </svg>
-                </button>
-                <div class="carousel-track">
+                <div class="carousel-container">
+                    <div class="carousel-track">
                     <!-- Set 1 -->
                     <div class="carousel-slide">
                         <img src="assets/images/testimonial-1.jpg" alt="Testimonio 1 - Agradecimiento por las clases">
@@ -1154,7 +1147,13 @@
                     <div class="carousel-slide">
                         <img src="assets/images/testimonial-5.jpg" alt="Testimonio 5">
                     </div>
+                    </div>
                 </div>
+                <button class="carousel-arrow carousel-arrow-next" aria-label="Siguiente">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="9 6 15 12 9 18"></polyline>
+                    </svg>
+                </button>
             </div>
         </div>
     </section>
@@ -1247,7 +1246,7 @@
         }, observerOptions);
 
         // Observe elements
-        document.querySelectorAll('.value-card, .carousel-container, .about-card, .final-cta-content, .section-label, .section-title').forEach(el => {
+        document.querySelectorAll('.value-card, .carousel-wrapper, .about-card, .final-cta-content, .section-label, .section-title').forEach(el => {
             observer.observe(el);
         });
 
