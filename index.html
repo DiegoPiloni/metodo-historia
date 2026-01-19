@@ -196,16 +196,38 @@
             font-weight: 400;
             font-style: italic;
             color: var(--burnt-umber);
-            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
             margin-bottom: 48px;
             opacity: 0;
             animation: fadeSlideUp 0.8s ease-out 0.5s forwards;
         }
 
-        .hero-subtitle span {
-            display: inline-block;
-            margin: 0 8px;
-            opacity: 0.5;
+        .hero-subtitle-item {
+            display: block;
+        }
+
+        .hero-subtitle-separator {
+            display: none;
+        }
+
+        @media (min-width: 480px) {
+            .hero-subtitle {
+                flex-direction: row;
+                gap: 0;
+            }
+
+            .hero-subtitle-item {
+                display: inline;
+            }
+
+            .hero-subtitle-separator {
+                display: inline-block;
+                margin: 0 12px;
+                opacity: 0.5;
+            }
         }
 
         @keyframes fadeSlideUp {
@@ -915,9 +937,11 @@
 
                 <h1>Clases Particulares<br>de <span class="accent">Historia</span></h1>
 
-                <p class="hero-subtitle">
-                    Para Nivel Secundario <span>•</span> <span style="white-space: nowrap; opacity: 1;">Explicaciones sencillas</span>
-                </p>
+                <div class="hero-subtitle">
+                    <span class="hero-subtitle-item">Para Nivel Secundario</span>
+                    <span class="hero-subtitle-separator">•</span>
+                    <span class="hero-subtitle-item">Explicaciones sencillas</span>
+                </div>
 
                 <div class="cta-wrapper">
                     <a href="https://wa.me/5493517158688?text=Hola!%20Quisiera%20consultar%20por%20las%20clases%20particulares%20de%20Historia" class="cta-primary" target="_blank">
