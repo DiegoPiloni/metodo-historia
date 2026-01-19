@@ -1265,40 +1265,12 @@
         const carouselTrack = document.querySelector('.carousel-track');
         const prevBtn = document.querySelector('.carousel-arrow-prev');
         const nextBtn = document.querySelector('.carousel-arrow-next');
-        let currentOffset = 0;
-        let isManualControl = false;
+        let resumeTimeout = null;
 
         if (carouselTrack) {
             const slideWidth = carouselTrack.querySelector('.carousel-slide')?.offsetWidth + 24 || 304; // width + gap
             const totalSlides = 5; // Original number of slides
             const maxOffset = slideWidth * totalSlides;
-
-            // Arrow navigation
-            prevBtn?.addEventListener('click', () => {
-                if (!isManualControl) {
-                    isManualControl = true;
-                    currentOffset = getCurrentOffset();
-                }
-                carouselTrack.classList.add('manual');
-                currentOffset += slideWidth;
-                if (currentOffset > 0) {
-                    currentOffset = -maxOffset + slideWidth;
-                }
-                carouselTrack.style.transform = `translateX(${currentOffset}px)`;
-            });
-
-            nextBtn?.addEventListener('click', () => {
-                if (!isManualControl) {
-                    isManualControl = true;
-                    currentOffset = getCurrentOffset();
-                }
-                carouselTrack.classList.add('manual');
-                currentOffset -= slideWidth;
-                if (currentOffset < -maxOffset) {
-                    currentOffset = 0;
-                }
-                carouselTrack.style.transform = `translateX(${currentOffset}px)`;
-            });
 
             function getCurrentOffset() {
                 const transform = window.getComputedStyle(carouselTrack).transform;
@@ -1307,15 +1279,44 @@
                 return matrix.m41;
             }
 
+            function resumeAutoScroll() {
+                clearTimeout(resumeTimeout);
+                resumeTimeout = setTimeout(() => {
+                    carouselTrack.classList.remove('manual');
+                    carouselTrack.style.transform = '';
+                }, 3000);
+            }
+
+            // Arrow navigation
+            prevBtn?.addEventListener('click', () => {
+                let currentOffset = getCurrentOffset();
+                carouselTrack.classList.add('manual');
+                currentOffset += slideWidth;
+                if (currentOffset > 0) {
+                    currentOffset = -maxOffset + slideWidth;
+                }
+                carouselTrack.style.transform = `translateX(${currentOffset}px)`;
+                resumeAutoScroll();
+            });
+
+            nextBtn?.addEventListener('click', () => {
+                let currentOffset = getCurrentOffset();
+                carouselTrack.classList.add('manual');
+                currentOffset -= slideWidth;
+                if (currentOffset < -maxOffset) {
+                    currentOffset = 0;
+                }
+                carouselTrack.style.transform = `translateX(${currentOffset}px)`;
+                resumeAutoScroll();
+            });
+
             // Mobile touch pause
             if (window.innerWidth < 768) {
                 carouselTrack.addEventListener('touchstart', () => {
                     carouselTrack.classList.add('paused');
                 });
                 carouselTrack.addEventListener('touchend', () => {
-                    if (!isManualControl) {
-                        carouselTrack.classList.remove('paused');
-                    }
+                    carouselTrack.classList.remove('paused');
                 });
             }
         }
