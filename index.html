@@ -1393,6 +1393,11 @@
                     }
                     isPaused = false;
                 });
+            } else {
+                // Desktop mouse hold to pause
+                carouselTrack.addEventListener('mousedown', () => { isPaused = true; });
+                carouselTrack.addEventListener('mouseup', () => { isPaused = false; });
+                carouselTrack.addEventListener('mouseleave', () => { isPaused = false; });
             }
         }
 
