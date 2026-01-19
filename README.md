@@ -10,7 +10,7 @@ Para que el sitio funcione correctamente, necesitas agregar las imágenes en la 
 
 1. **Logo**: `assets/images/logo.png`
 2. **Fondo del hero**: `assets/images/hero-bg.jpg`
-3. **Foto de la profesora**: `assets/images/agus.png`
+3. **Foto de la profesora**: `assets/images/agus.jpg`
 4. **Iconos de redes sociales**:
    - `assets/images/whatsapp.png`
    - `assets/images/instagram.png`
