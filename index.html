@@ -279,7 +279,10 @@
             box-shadow:
                 0 4px 24px var(--shadow-warm),
                 inset 0 1px 0 rgba(255, 255, 255, 0.8);
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                        transform 0.2s ease-out,
+                        box-shadow 0.2s ease-out,
+                        border-left-width 0.2s ease-out;
             opacity: 0;
             transform: translateY(40px);
         }
@@ -287,6 +290,16 @@
         .value-card.visible {
             opacity: 1;
             transform: translateY(0);
+            transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                        transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                        box-shadow 0.2s ease-out,
+                        border-left-width 0.2s ease-out;
+        }
+
+        .value-card.visible:hover {
+            transition: transform 0.2s ease-out,
+                        box-shadow 0.2s ease-out,
+                        border-left-width 0.2s ease-out;
         }
 
         .value-card:nth-child(1) { transition-delay: 0.1s; }
