@@ -61,102 +61,117 @@
 
         /* Header */
         header {
-            background: linear-gradient(135deg, hsl(40 30% 95%) 0%, hsl(38 25% 91%) 50%, hsl(35 20% 88%) 100%);
-            padding: 4rem 2rem;
+            background: linear-gradient(180deg, hsl(40 25% 96%) 0%, hsl(38 25% 94%) 100%);
+            padding: 3rem 1rem 4rem;
             text-align: center;
-            border-bottom: 1px solid hsl(var(--border));
-            box-shadow: 0 4px 20px -4px hsl(25 40% 12% / 0.08);
+            position: relative;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+            opacity: 0.6;
+            pointer-events: none;
         }
 
         .logo-container {
             display: flex;
             justify-content: center;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
         }
 
         .logo {
-            max-width: 240px;
+            max-width: 180px;
             height: auto;
-            background: hsl(var(--parchment));
-            padding: 1.5rem;
-            border-radius: 20px;
-            border: 2px solid hsl(var(--gold));
-            box-shadow: 0 4px 24px -4px hsl(42 80% 50% / 0.3);
+        }
+
+        .experience-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: white;
+            padding: 0.5rem 1.25rem;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: hsl(var(--foreground));
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .experience-badge::before {
+            content: "⭐";
+            font-size: 1.2em;
         }
 
         h1 {
-            font-size: 2.5rem;
+            font-size: clamp(2rem, 6vw, 3.5rem);
             font-weight: 700;
             color: hsl(var(--foreground));
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
             line-height: 1.2;
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 .highlight {
+            color: #8B6F47;
         }
 
         .subtitle {
-            font-size: 1.25rem;
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
             color: hsl(var(--muted-foreground));
-            font-weight: 500;
+            font-weight: 400;
             margin-bottom: 2rem;
-        }
-
-        /* Value Props */
-        .value-props {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin: 3rem 0;
-        }
-
-        .value-prop {
-            background: hsl(var(--card));
-            padding: 2rem;
-            border-radius: 0.75rem;
-            border: 1.5px solid hsl(var(--border));
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .value-prop:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 24px -4px rgb(0 0 0 / 0.15);
-            border-color: hsl(var(--gold));
-        }
-
-        .value-prop h3 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: hsl(var(--foreground));
-            margin-bottom: 0.75rem;
-        }
-
-        .value-prop p {
-            color: hsl(var(--muted-foreground));
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
             line-height: 1.6;
+            position: relative;
+            z-index: 1;
         }
 
         /* CTA Button */
         .cta-button {
-            display: inline-block;
-            background: linear-gradient(135deg, #25D366 0%, #1ea952 100%);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            background: #25D366;
             color: white;
-            padding: 1rem 2.5rem;
+            padding: 1.125rem 2.5rem;
             text-decoration: none;
-            border-radius: 60px;
+            border-radius: 50px;
             font-weight: 600;
             font-size: 1.125rem;
-            margin-top: 1.5rem;
-            box-shadow: 0 5px 0 #128C7E, 0 8px 20px rgba(37, 211, 102, 0.45);
+            margin-top: 1rem;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
             transition: all 0.3s ease;
-            border: 3px solid rgba(255, 255, 255, 0.3);
+            border: none;
+            position: relative;
+            z-index: 1;
+            width: calc(100% - 2rem);
+            max-width: 600px;
         }
 
         .cta-button:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 0 #128C7E, 0 15px 35px rgba(37, 211, 102, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(37, 211, 102, 0.4);
+            background: #1ea952;
         }
 
         .cta-button::before {
-            content: "💬 ";
+            content: "💬";
+            font-size: 1.5em;
         }
 
         /* Main Content */
@@ -358,13 +373,25 @@
 
         /* Responsive */
         @media (max-width: 768px) {
-            h1 {
-                font-size: 1.875rem;
+            header {
+                padding: 2rem 1rem 3rem;
             }
 
-            .value-props {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
+            .logo {
+                max-width: 140px;
+            }
+
+            .experience-badge {
+                font-size: 0.85rem;
+                padding: 0.4rem 1rem;
+            }
+
+            h1 {
+                font-size: 1.75rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
             }
 
             .carousel-container {
@@ -377,8 +404,13 @@
             }
 
             .cta-button {
-                width: 100%;
-                max-width: 350px;
+                width: calc(100% - 2rem);
+                padding: 1rem 2rem;
+                font-size: 1rem;
+            }
+
+            .cta-button::before {
+                font-size: 1.3em;
             }
         }
     </style>
@@ -390,23 +422,12 @@
             <div class="logo-container">
                 <img src="assets/images/logo.png" alt="Método Historia Logo" class="logo">
             </div>
-            <h1>Clases Particulares de Historia</h1>
-            <p class="subtitle">Para Nivel Secundario • Online en Argentina</p>
 
-            <div class="value-props">
-                <div class="value-prop">
-                    <h3>🎯 Clases Individuales</h3>
-                    <p>Por Meet o Zoom, adaptadas a tu ritmo y necesidades específicas</p>
-                </div>
-                <div class="value-prop">
-                    <h3>💡 Explicaciones Sencillas</h3>
-                    <p>Incluso para situaciones de emergencia. Si no entendés historia, vas a poder entender</p>
-                </div>
-                <div class="value-prop">
-                    <h3>📚 Seguimiento Personalizado</h3>
-                    <p>Acompañamiento hasta que rindas el examen con seguridad y confianza</p>
-                </div>
-            </div>
+            <div class="experience-badge">+10 años de experiencia</div>
+
+            <h1>Clases particulares de <span class="highlight">Historia</span> para secundario</h1>
+
+            <p class="subtitle">Clases online personalizadas con una profesora recibida en la UNC. Explicaciones simples para que tu hijo apruebe, incluso en situaciones de emergencia.</p>
 
             <a href="https://wa.me/5493517158688?text=Hola!%20Me%20interesa%20recibir%20clases%20particulares%20de%20historia" class="cta-button" target="_blank" rel="noopener">Consultar por WhatsApp</a>
         </div>
