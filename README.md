@@ -41,4 +41,4 @@ Simplemente abre el archivo `index.html` en tu navegador para ver el sitio, o vi
 
 ## Modificar el número de WhatsApp
 
-Si necesitas cambiar el número de WhatsApp, busca en `index.html` el número `5493517158688` y reemplázalo por el nuevo número en formato internacional (sin espacios ni guiones).
+Si necesitas cambiar el número de WhatsApp, busca en `index.html` el número `5493513115015` y reemplázalo por el nuevo número en formato internacional (sin espacios ni guiones).
