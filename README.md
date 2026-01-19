@@ -14,7 +14,7 @@ Para que el sitio funcione correctamente, necesitas agregar las imágenes en la 
 4. **Iconos de redes sociales**:
    - `assets/images/whatsapp.png`
    - `assets/images/instagram.png`
-   - `assets/images/google-maps.png`
+   - `assets/images/maps.svg`
 5. **Testimonios** (screenshots de Instagram):
    - `assets/images/testimonial-1.jpg`
    - `assets/images/testimonial-2.jpg`
