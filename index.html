@@ -468,6 +468,7 @@
             opacity: 0;
             transform: translateY(40px);
             transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
         }
 
         .carousel-container.visible {
@@ -480,6 +481,11 @@
             gap: 24px;
             animation: infiniteScroll 25s linear infinite;
             width: max-content;
+            transition: transform 0.4s ease-out;
+        }
+
+        .carousel-track.manual {
+            animation: none;
         }
 
         .carousel-track.paused {
@@ -519,6 +525,61 @@
             width: 100%;
             height: auto;
             display: block;
+        }
+
+        /* Carousel Arrows */
+        .carousel-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 44px;
+            height: 44px;
+            background: var(--parchment-warm);
+            border: 1px solid var(--aged-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            color: var(--burnt-umber);
+            opacity: 0.7;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px var(--shadow-warm);
+        }
+
+        .carousel-arrow:hover {
+            opacity: 1;
+            background: var(--parchment-cream);
+            box-shadow: 0 4px 16px var(--shadow-warm);
+            transform: translateY(-50%) scale(1.05);
+        }
+
+        .carousel-arrow:active {
+            transform: translateY(-50%) scale(0.95);
+        }
+
+        .carousel-arrow-prev {
+            left: 8px;
+        }
+
+        .carousel-arrow-next {
+            right: 8px;
+        }
+
+        @media (min-width: 768px) {
+            .carousel-arrow {
+                width: 48px;
+                height: 48px;
+            }
+
+            .carousel-arrow-prev {
+                left: 16px;
+            }
+
+            .carousel-arrow-next {
+                right: 16px;
+            }
         }
 
         /* About Section */
@@ -911,6 +972,44 @@
             }
         }
 
+        /* Mobile text centering */
+        @media (max-width: 767px) {
+            .value-card {
+                text-align: center;
+                border-left: none;
+                border-top: 4px solid var(--aged-gold);
+            }
+
+            .value-card::before {
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 1px;
+                background: linear-gradient(90deg, transparent 10%, var(--aged-gold) 50%, transparent 90%);
+            }
+
+            .value-card:hover {
+                transform: translateY(-6px);
+                border-left: none;
+                border-top-width: 6px;
+            }
+
+            .value-icon {
+                display: flex;
+                justify-content: center;
+            }
+
+            .credentials-list li {
+                text-align: center;
+                padding-left: 0;
+                padding-right: 0;
+            }
+
+            .credentials-list li::before {
+                display: none;
+            }
+        }
+
         /* Reduced motion */
         @media (prefers-reduced-motion: reduce) {
             *,
@@ -996,6 +1095,16 @@
             </header>
 
             <div class="carousel-container">
+                <button class="carousel-arrow carousel-arrow-prev" aria-label="Anterior">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                </button>
+                <button class="carousel-arrow carousel-arrow-next" aria-label="Siguiente">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="9 6 15 12 9 18"></polyline>
+                    </svg>
+                </button>
                 <div class="carousel-track">
                     <!-- Set 1 -->
                     <div class="carousel-slide">
@@ -1148,15 +1257,63 @@
             floatingBtn.classList.toggle('visible', window.scrollY > 400);
         });
 
-        // Mobile carousel touch pause
+        // Carousel functionality
         const carouselTrack = document.querySelector('.carousel-track');
-        if (carouselTrack && window.innerWidth < 768) {
-            carouselTrack.addEventListener('touchstart', () => {
-                carouselTrack.classList.add('paused');
+        const prevBtn = document.querySelector('.carousel-arrow-prev');
+        const nextBtn = document.querySelector('.carousel-arrow-next');
+        let currentOffset = 0;
+        let isManualControl = false;
+
+        if (carouselTrack) {
+            const slideWidth = carouselTrack.querySelector('.carousel-slide')?.offsetWidth + 24 || 304; // width + gap
+            const totalSlides = 5; // Original number of slides
+            const maxOffset = slideWidth * totalSlides;
+
+            // Arrow navigation
+            prevBtn?.addEventListener('click', () => {
+                if (!isManualControl) {
+                    isManualControl = true;
+                    currentOffset = getCurrentOffset();
+                }
+                carouselTrack.classList.add('manual');
+                currentOffset += slideWidth;
+                if (currentOffset > 0) {
+                    currentOffset = -maxOffset + slideWidth;
+                }
+                carouselTrack.style.transform = `translateX(${currentOffset}px)`;
             });
-            carouselTrack.addEventListener('touchend', () => {
-                carouselTrack.classList.remove('paused');
+
+            nextBtn?.addEventListener('click', () => {
+                if (!isManualControl) {
+                    isManualControl = true;
+                    currentOffset = getCurrentOffset();
+                }
+                carouselTrack.classList.add('manual');
+                currentOffset -= slideWidth;
+                if (currentOffset < -maxOffset) {
+                    currentOffset = 0;
+                }
+                carouselTrack.style.transform = `translateX(${currentOffset}px)`;
             });
+
+            function getCurrentOffset() {
+                const transform = window.getComputedStyle(carouselTrack).transform;
+                if (transform === 'none') return 0;
+                const matrix = new DOMMatrix(transform);
+                return matrix.m41;
+            }
+
+            // Mobile touch pause
+            if (window.innerWidth < 768) {
+                carouselTrack.addEventListener('touchstart', () => {
+                    carouselTrack.classList.add('paused');
+                });
+                carouselTrack.addEventListener('touchend', () => {
+                    if (!isManualControl) {
+                        carouselTrack.classList.remove('paused');
+                    }
+                });
+            }
         }
 
         // Activate first timeline marker
