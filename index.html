@@ -7,18 +7,21 @@
     <meta name="description" content="Clases particulares de historia para nivel secundario. Online en Argentina. Explicaciones sencillas y seguimiento personalizado hasta rendir.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
     <style>
         :root {
-            --parchment-light: #f4e8d8;
-            --parchment-dark: #e5d3b3;
-            --parchment-darker: #d4b896;
-            --ink-dark: #3d2817;
-            --ink-medium: #6b4423;
-            --ink-light: #8b6f47;
-            --amber-accent: #d4a574;
-            --sepia: #a0826d;
-            --cream: #fffcf5;
+            /* Deep antiquarian palette */
+            --parchment-cream: #faf6f0;
+            --parchment-warm: #f5ede0;
+            --aged-gold: #c9a962;
+            --burnished-gold: #b8923c;
+            --burnt-umber: #6d4c2d;
+            --deep-sepia: #4a3423;
+            --ink-black: #1a1410;
+            --oxblood: #722f37;
+            --verdigris: #4a7c6f;
+            --shadow-warm: rgba(74, 52, 35, 0.12);
+            --shadow-deep: rgba(26, 20, 16, 0.2);
         }
 
         * {
@@ -29,123 +32,91 @@
 
         html {
             scroll-behavior: smooth;
+            font-size: 16px;
         }
 
         body {
-            font-family: 'Crimson Text', 'Georgia', serif;
-            line-height: 1.8;
-            color: var(--ink-dark);
-            background: var(--parchment-light);
+            font-family: 'Spectral', Georgia, serif;
+            line-height: 1.75;
+            color: var(--deep-sepia);
+            background: var(--parchment-cream);
             overflow-x: hidden;
         }
 
-        /* Rich paper texture with aged effect */
+        /* Subtle paper grain texture */
         body::before {
             content: '';
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background:
-                radial-gradient(ellipse at 20% 50%, rgba(212, 165, 116, 0.08) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 80%, rgba(160, 130, 109, 0.06) 0%, transparent 50%),
-                repeating-linear-gradient(
-                    0deg,
-                    transparent 0px,
-                    rgba(61, 40, 23, 0.015) 1px,
-                    transparent 2px
-                ),
-                repeating-linear-gradient(
-                    90deg,
-                    transparent 0px,
-                    rgba(61, 40, 23, 0.01) 1px,
-                    transparent 2px
-                );
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.03;
             pointer-events: none;
-            z-index: 1;
+            z-index: 1000;
         }
 
-        /* Vintage watermark effect */
-        body::after {
-            content: '';
+        /* Elegant timeline spine */
+        .timeline-spine {
             position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) rotate(-15deg);
-            width: 60%;
-            height: 60%;
-            background-image: url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle' font-family='Playfair Display' font-size='24' fill='%238b6f47' opacity='0.03'%3EHISTORIA%3C/text%3E%3C/svg%3E");
-            background-repeat: repeat;
-            background-size: 200px 200px;
-            pointer-events: none;
-            z-index: 1;
+            left: 40px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(
+                to bottom,
+                transparent 0%,
+                var(--aged-gold) 10%,
+                var(--aged-gold) 90%,
+                transparent 100%
+            );
+            opacity: 0.4;
+            z-index: 10;
+            display: none;
+        }
+
+        .timeline-marker {
+            position: absolute;
+            left: -6px;
+            width: 14px;
+            height: 14px;
+            background: var(--parchment-cream);
+            border: 2px solid var(--aged-gold);
+            border-radius: 50%;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .timeline-marker.active {
+            background: var(--aged-gold);
+            transform: scale(1.3);
+            box-shadow: 0 0 20px rgba(201, 169, 98, 0.4);
         }
 
         .container {
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 0 30px;
+            padding: 0 24px;
             position: relative;
-            z-index: 2;
         }
 
-        /* Decorative corner ornaments - Hidden on mobile */
-        .ornament {
-            display: none;
-            position: absolute;
-            width: 80px;
-            height: 80px;
-            opacity: 0.15;
-            pointer-events: none;
-        }
-
-        .ornament-tl {
-            top: 20px;
-            left: 20px;
-            border-top: 3px solid var(--ink-medium);
-            border-left: 3px solid var(--ink-medium);
-            border-top-left-radius: 20px;
-        }
-
-        .ornament-tr {
-            top: 20px;
-            right: 20px;
-            border-top: 3px solid var(--ink-medium);
-            border-right: 3px solid var(--ink-medium);
-            border-top-right-radius: 20px;
-        }
-
-        /* Hero Section - Mobile First */
+        /* Hero Section - Editorial Magazine Style */
         .hero {
-            position: relative;
-            text-align: center;
-            padding: 50px 20px 70px;
-            margin: 20px 10px 40px;
-            background:
-                linear-gradient(135deg, rgba(255, 252, 245, 0.95) 0%, rgba(244, 232, 216, 0.9) 100%);
-            border: 1px solid var(--amber-accent);
-            box-shadow:
-                0 10px 40px rgba(61, 40, 23, 0.12),
-                inset 0 1px 0 rgba(255, 255, 255, 0.6);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 60px 0;
             position: relative;
             overflow: hidden;
-            animation: pageOpen 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
         .hero::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg,
-                transparent 0%,
-                var(--amber-accent) 20%,
-                var(--ink-medium) 50%,
-                var(--amber-accent) 80%,
-                transparent 100%);
+            top: -20%;
+            right: -10%;
+            width: 60%;
+            height: 140%;
+            background: radial-gradient(ellipse at center, rgba(201, 169, 98, 0.08) 0%, transparent 70%);
+            pointer-events: none;
         }
 
         .hero::after {
@@ -154,1019 +125,783 @@
             bottom: 0;
             left: 0;
             right: 0;
-            height: 2px;
-            background: linear-gradient(90deg,
-                transparent 0%,
-                var(--amber-accent) 20%,
-                var(--ink-medium) 50%,
-                var(--amber-accent) 80%,
-                transparent 100%);
+            height: 200px;
+            background: linear-gradient(to top, var(--parchment-cream) 0%, transparent 100%);
+            pointer-events: none;
+            z-index: 5;
         }
 
-        @keyframes pageOpen {
-            0% {
-                opacity: 0;
-                transform: perspective(1000px) rotateX(-15deg) translateY(30px);
-            }
-            100% {
-                opacity: 1;
-                transform: perspective(1000px) rotateX(0deg) translateY(0);
-            }
+        .hero-content {
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'Spectral', serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--burnt-umber);
+            margin-bottom: 24px;
+            opacity: 0;
+            animation: fadeSlideUp 0.8s ease-out 0.2s forwards;
+        }
+
+        .hero-eyebrow::before,
+        .hero-eyebrow::after {
+            content: '';
+            width: 30px;
+            height: 1px;
+            background: var(--aged-gold);
+        }
+
+        .logo-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 32px;
+            opacity: 0;
+            animation: fadeScaleIn 1s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s forwards;
         }
 
         .logo {
-            max-width: 180px;
+            max-width: 160px;
             height: auto;
-            margin: 0 auto 25px;
-            filter:
-                drop-shadow(0 4px 8px rgba(61, 40, 23, 0.15))
-                sepia(0.05);
-            animation: fadeInScale 1s ease-out 0.3s both;
-            display: block;
-            background: var(--cream);
-            padding: 15px;
-            border-radius: 20px;
-            border: 2px solid var(--amber-accent);
-            box-shadow: 0 4px 15px rgba(61, 40, 23, 0.1);
-        }
-
-        @keyframes fadeInScale {
-            0% {
-                opacity: 0;
-                transform: scale(0.9);
-            }
-            100% {
-                opacity: 1;
-                transform: scale(1);
-            }
+            filter: drop-shadow(0 8px 24px var(--shadow-warm));
+            background: var(--parchment-cream);
+            padding: 16px;
+            border-radius: 16px;
+            border: 2px solid var(--aged-gold);
+            box-shadow:
+                0 0 0 1px rgba(201, 169, 98, 0.1),
+                0 4px 20px var(--shadow-warm);
         }
 
         .hero h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.85em;
-            font-weight: 900;
-            color: var(--ink-dark);
-            margin-bottom: 15px;
-            letter-spacing: -0.5px;
-            line-height: 1.2;
-            text-shadow: 2px 2px 0 rgba(212, 165, 116, 0.2);
-            animation: fadeInUp 0.8s ease-out 0.5s both;
-        }
-
-        .hero .subtitle {
-            font-size: 1.05em;
-            color: var(--ink-medium);
-            margin-bottom: 40px;
-            font-style: italic;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.2rem, 6vw, 4.5rem);
             font-weight: 600;
-            letter-spacing: 0.5px;
-            animation: fadeInUp 0.8s ease-out 0.7s both;
+            line-height: 1.1;
+            color: var(--ink-black);
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+            text-align: center;
+            opacity: 0;
+            animation: fadeSlideUp 0.8s ease-out 0.3s forwards;
         }
 
-        @keyframes fadeInUp {
-            0% {
+        .hero h1 .accent {
+            font-style: italic;
+            color: var(--oxblood);
+        }
+
+        .hero-subtitle {
+            font-family: 'Spectral', serif;
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            font-weight: 400;
+            font-style: italic;
+            color: var(--burnt-umber);
+            text-align: center;
+            margin-bottom: 48px;
+            opacity: 0;
+            animation: fadeSlideUp 0.8s ease-out 0.5s forwards;
+        }
+
+        .hero-subtitle span {
+            display: inline-block;
+            margin: 0 8px;
+            opacity: 0.5;
+        }
+
+        @keyframes fadeSlideUp {
+            from {
                 opacity: 0;
                 transform: translateY(30px);
             }
-            100% {
+            to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
 
-        /* Value Props - Mobile First */
-        .value-props {
+        @keyframes fadeScaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Value Propositions - Asymmetric Cards */
+        .value-section {
+            padding: 40px 0 80px;
+            position: relative;
+        }
+
+        .value-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 20px;
-            margin: 40px auto 50px;
-            max-width: 1000px;
+            gap: 24px;
         }
 
-        .value-prop {
-            background: var(--cream);
-            padding: 28px 25px;
-            border: 2px solid var(--amber-accent);
-            border-left: 6px solid var(--ink-medium);
-            box-shadow:
-                3px 3px 0 rgba(61, 40, 23, 0.05),
-                0 6px 15px rgba(61, 40, 23, 0.08);
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        .value-card {
             position: relative;
-            overflow: hidden;
-            animation: fadeInStagger 0.6s ease-out both;
-        }
-
-        .value-prop:nth-child(1) { animation-delay: 0.9s; }
-        .value-prop:nth-child(2) { animation-delay: 1.1s; }
-        .value-prop:nth-child(3) { animation-delay: 1.3s; }
-
-        @keyframes fadeInStagger {
-            0% {
-                opacity: 0;
-                transform: translateY(40px) rotate(-2deg);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0) rotate(0deg);
-            }
-        }
-
-        .value-prop::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, var(--amber-accent) 0%, transparent 60%);
+            background: var(--parchment-warm);
+            padding: 32px 28px;
+            border-left: 4px solid var(--aged-gold);
+            box-shadow:
+                0 4px 24px var(--shadow-warm),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             opacity: 0;
-            transition: opacity 0.4s ease;
+            transform: translateY(40px);
         }
 
-        .value-prop:hover {
-            transform: translateY(-4px) rotate(0.5deg);
-            box-shadow:
-                4px 4px 0 rgba(61, 40, 23, 0.08),
-                0 10px 25px rgba(61, 40, 23, 0.12);
-            border-left-width: 8px;
+        .value-card.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        .value-prop:hover::before {
-            opacity: 0.05;
-        }
+        .value-card:nth-child(1) { transition-delay: 0.1s; }
+        .value-card:nth-child(2) { transition-delay: 0.2s; }
+        .value-card:nth-child(3) { transition-delay: 0.3s; }
 
-        .value-prop h3 {
-            font-family: 'Playfair Display', serif;
-            color: var(--ink-dark);
-            font-size: 1.3em;
-            font-weight: 700;
-            margin-bottom: 12px;
-            position: relative;
-        }
-
-        .value-prop p {
-            color: var(--ink-medium);
-            font-size: 1em;
-            line-height: 1.6;
-        }
-
-        /* CTA Button - Mobile First */
-        .cta-button {
-            display: inline-block;
-            background: linear-gradient(135deg, #25D366 0%, #1ea952 100%);
-            color: white;
-            padding: 16px 35px;
-            text-decoration: none;
-            border-radius: 60px;
-            font-family: 'Playfair Display', serif;
-            font-size: 1.15em;
-            font-weight: 700;
-            margin-top: 20px;
-            width: 100%;
-            max-width: 350px;
-            box-shadow:
-                0 5px 0 #128C7E,
-                0 8px 20px rgba(37, 211, 102, 0.45);
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            position: relative;
-            animation: fadeInUp 0.8s ease-out 1.5s both, pulse 2s ease-in-out 3s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                box-shadow:
-                    0 6px 0 #128C7E,
-                    0 10px 25px rgba(37, 211, 102, 0.45);
-            }
-            50% {
-                box-shadow:
-                    0 6px 0 #128C7E,
-                    0 10px 35px rgba(37, 211, 102, 0.6);
-            }
-        }
-
-        .cta-button::before {
-            content: "💬";
-            font-size: 1.2em;
-            margin-right: 10px;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-4px) scale(1.02);
-            box-shadow:
-                0 8px 0 #128C7E,
-                0 15px 35px rgba(37, 211, 102, 0.5);
-        }
-
-        .cta-button:active {
-            transform: translateY(-2px);
-            box-shadow:
-                0 4px 0 #128C7E,
-                0 8px 20px rgba(37, 211, 102, 0.4);
-        }
-
-        /* Testimonials - Mobile First */
-        .testimonials-section {
-            padding: 60px 20px;
-            background:
-                linear-gradient(180deg, transparent 0%, rgba(228, 211, 179, 0.3) 50%, transparent 100%);
-            margin: 40px 0;
-            position: relative;
-        }
-
-        /* Hide decorative elements on mobile */
-        .testimonials-section::before,
-        .testimonials-section::after {
-            display: none;
-        }
-
-        .testimonials-section h2 {
-            text-align: center;
-            font-family: 'Playfair Display', serif;
-            font-size: 1.75em;
-            font-weight: 900;
-            color: var(--ink-dark);
-            margin-bottom: 40px;
-            position: relative;
-            padding-bottom: 20px;
-        }
-
-        .testimonials-section h2::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 120px;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, var(--amber-accent), transparent);
-        }
-
-        .carousel-container {
-            position: relative;
-            max-width: 100%;
-            margin: 0 auto;
-            overflow: hidden;
-            border: 2px solid var(--ink-medium);
-            box-shadow:
-                0 0 0 4px var(--parchment-dark),
-                0 0 0 6px var(--ink-medium),
-                0 8px 20px rgba(61, 40, 23, 0.2);
-            background: var(--cream);
-            border-radius: 8px;
-        }
-
-        .carousel-track {
-            display: flex;
-            transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1);
-            touch-action: pan-y pinch-zoom;
-        }
-
-        .carousel-slide {
-            min-width: 100%;
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--cream);
-            min-height: 400px;
-        }
-
-        .carousel-slide img {
-            width: 100%;
-            height: auto;
-            max-height: 500px;
-            object-fit: contain;
-            display: block;
-            filter: contrast(1.05);
-            transition: filter 0.3s ease;
-        }
-
-        .carousel-slide:hover img {
-            filter: contrast(1.1);
-        }
-
-        .carousel-button {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: var(--cream);
-            border: 2px solid var(--ink-dark);
-            color: var(--ink-dark);
-            padding: 8px 12px;
-            cursor: pointer;
-            font-size: 1.3em;
-            font-weight: bold;
-            font-family: 'Playfair Display', serif;
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-            z-index: 10;
-            box-shadow:
-                2px 2px 0 rgba(61, 40, 23, 0.2),
-                0 3px 10px rgba(61, 40, 23, 0.15);
-        }
-
-        .carousel-button:hover {
-            background: var(--amber-accent);
-            color: white;
-            transform: translateY(-50%) scale(1.1);
-            box-shadow:
-                3px 3px 0 rgba(61, 40, 23, 0.3),
-                0 5px 15px rgba(61, 40, 23, 0.25);
-        }
-
-        .carousel-button.prev {
-            left: 5px;
-        }
-
-        .carousel-button.next {
-            right: 5px;
-        }
-
-        .carousel-indicators {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 35px;
-        }
-
-        .indicator {
-            width: 14px;
-            height: 14px;
-            border: 3px solid var(--ink-medium);
-            background: var(--parchment-light);
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-            transform: rotate(45deg);
-        }
-
-        .indicator.active {
-            background: var(--ink-dark);
-            transform: rotate(45deg) scale(1.4);
-            border-color: var(--amber-accent);
-        }
-
-        /* About Section - Mobile First */
-        .about-section {
-            padding: 60px 25px;
-            background: var(--cream);
-            margin: 40px 10px;
-            max-width: 1000px;
-            border: 2px double var(--ink-medium);
-            box-shadow:
-                0 0 0 8px var(--parchment-dark),
-                0 0 0 10px var(--ink-medium),
-                0 15px 40px rgba(61, 40, 23, 0.15);
-            position: relative;
-        }
-
-        .about-section::before,
-        .about-section::after {
-            content: '◆';
-            position: absolute;
-            font-size: 1.5em;
-            color: var(--amber-accent);
-        }
-
-        .about-section::before {
-            top: 15px;
-            left: 15px;
-        }
-
-        .about-section::after {
-            bottom: 15px;
-            right: 15px;
-        }
-
-        .about-section h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2em;
-            font-weight: 900;
-            color: var(--ink-dark);
-            margin-bottom: 25px;
-            text-align: center;
-            position: relative;
-        }
-
-        .about-content {
-            max-width: 800px;
-            margin: 0 auto;
-            font-size: 1.08em;
-            color: var(--ink-dark);
-            line-height: 1.8;
-            text-align: center;
-        }
-
-        .about-content > p {
-            color: var(--ink-medium);
-        }
-
-        .credentials {
-            background:
-                linear-gradient(135deg, rgba(212, 165, 116, 0.08) 0%, transparent 100%);
-            padding: 30px 25px;
-            border-left: 5px solid var(--amber-accent);
-            border-right: 5px solid var(--amber-accent);
-            margin: 30px 0;
-            text-align: left;
-            position: relative;
-        }
-
-        .credentials::before {
-            content: '❝';
-            position: absolute;
-            top: 5px;
-            left: 5px;
-            font-size: 3em;
-            color: var(--amber-accent);
-            opacity: 0.15;
-            font-family: 'Playfair Display', serif;
-        }
-
-        .credentials h3 {
-            font-family: 'Playfair Display', serif;
-            color: var(--ink-dark);
-            font-size: 1.4em;
-            margin-bottom: 18px;
-            text-align: center;
-        }
-
-        .credentials ul {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .credentials li {
-            padding: 10px 0 10px 35px;
-            position: relative;
-            font-size: 1em;
-        }
-
-        .credentials li::before {
-            content: "◆";
-            position: absolute;
-            left: 0;
-            color: var(--amber-accent);
-            font-size: 1.1em;
-        }
-
-        /* CTA Section - Mobile First */
-        .cta-section {
-            padding: 60px 25px;
-            background:
-                linear-gradient(135deg, var(--ink-dark) 0%, var(--ink-medium) 100%);
-            text-align: center;
-            margin: 40px 0 20px;
-            position: relative;
-            overflow: hidden;
-            border-top: 3px solid var(--amber-accent);
-            border-bottom: 3px solid var(--amber-accent);
-        }
-
-        .cta-section::before {
+        .value-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
-            bottom: 0;
-            background:
-                radial-gradient(circle at 20% 30%, rgba(212, 165, 116, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(212, 165, 116, 0.08) 0%, transparent 50%);
-            pointer-events: none;
+            height: 1px;
+            background: linear-gradient(90deg, var(--aged-gold), transparent 80%);
         }
 
-        .cta-section h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.9em;
-            font-weight: 900;
-            color: var(--cream);
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
-            position: relative;
+        .value-card:hover {
+            transform: translateY(-6px) translateX(4px);
+            box-shadow:
+                0 12px 40px var(--shadow-deep),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            border-left-width: 6px;
         }
 
-        .cta-section p {
-            font-size: 1.25em;
-            color: var(--parchment-light);
-            margin-bottom: 35px;
-            font-style: italic;
-            position: relative;
+        .value-icon {
+            font-size: 2rem;
+            margin-bottom: 16px;
+            display: block;
         }
 
-        .cta-section .cta-button {
-            background: linear-gradient(135deg, #25D366 0%, #1ea952 100%);
-            animation: none;
+        .value-card h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--ink-black);
+            margin-bottom: 12px;
+            line-height: 1.2;
         }
 
-        /* Footer - Mobile First */
-        footer {
-            text-align: center;
-            padding: 30px 20px;
-            color: var(--ink-medium);
-            font-size: 0.95em;
-            background:
-                linear-gradient(180deg, transparent 0%, rgba(228, 211, 179, 0.4) 100%);
-            border-top: 2px solid var(--amber-accent);
-            font-style: italic;
+        .value-card p {
+            font-size: 1rem;
+            color: var(--burnt-umber);
+            line-height: 1.7;
         }
 
-        footer p {
-            margin: 8px 0;
-        }
-
-        /* Tablet and up (481px+) */
-        @media (min-width: 481px) {
-            .hero h1 {
-                font-size: 2.2em;
-            }
-
-            .hero .subtitle {
-                font-size: 1.15em;
-            }
-
-            .logo {
-                max-width: 220px;
-                padding: 18px;
-                border-radius: 22px;
-            }
-
-            .value-prop h3 {
-                font-size: 1.4em;
-            }
-
-            .value-prop p {
-                font-size: 1.05em;
-            }
-
-            .carousel-container {
-                max-width: 480px;
-                border-radius: 10px;
-            }
-
-            .carousel-slide {
-                min-height: 450px;
-            }
-
-            .carousel-slide img {
-                max-height: 600px;
-            }
-
-            .carousel-button {
-                padding: 10px 14px;
-                font-size: 1.5em;
-            }
-
-            .testimonials-section h2 {
-                font-size: 2em;
-            }
-        }
-
-        /* Desktop and up (769px+) */
-        @media (min-width: 769px) {
-            .ornament {
-                display: block;
-            }
-
-            .hero {
-                padding: 70px 35px 90px;
-                margin: 30px 0 50px;
-            }
-
-            .hero h1 {
-                font-size: 2.8em;
-            }
-
-            .hero .subtitle {
-                font-size: 1.3em;
-            }
-
-            .logo {
-                max-width: 240px;
-                padding: 20px;
-                border-radius: 25px;
-            }
-
-            .value-props {
-                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-                gap: 25px;
-                margin: 45px auto 60px;
-            }
-
-            .value-prop {
-                padding: 32px 28px;
-                border-left-width: 7px;
-            }
-
-            .value-prop h3 {
-                font-size: 1.5em;
-            }
-
-            .value-prop p {
-                font-size: 1.1em;
-            }
-
-            .cta-button {
-                padding: 18px 45px;
-                font-size: 1.25em;
-                width: auto;
-            }
-
-            .testimonials-section {
-                padding: 70px 25px;
-                margin: 50px 0;
-            }
-
-            .testimonials-section::before,
-            .testimonials-section::after {
-                display: block;
-                content: '❋';
-                position: absolute;
-                font-size: 2.5em;
-                color: var(--amber-accent);
-                opacity: 0.2;
-            }
-
-            .testimonials-section::before {
-                top: 30px;
-                left: 40px;
-            }
-
-            .testimonials-section::after {
-                bottom: 30px;
-                right: 40px;
-            }
-
-            .testimonials-section h2 {
-                font-size: 2.5em;
-                margin-bottom: 50px;
-            }
-
-            .carousel-container {
-                max-width: 520px;
-                border-radius: 12px;
-                box-shadow:
-                    0 0 0 6px var(--parchment-dark),
-                    0 0 0 9px var(--ink-medium),
-                    0 12px 35px rgba(61, 40, 23, 0.25);
-            }
-
-            .carousel-slide {
-                min-height: 500px;
-            }
-
-            .carousel-slide img {
-                max-height: 650px;
-            }
-
-            .carousel-button {
-                padding: 14px 18px;
-                font-size: 1.6em;
-                border-width: 3px;
-            }
-
-            .carousel-button.prev {
-                left: -50px;
-            }
-
-            .carousel-button.next {
-                right: -50px;
-            }
-
-            .about-section {
-                padding: 70px 35px;
-                margin: 50px auto;
-                border-width: 3px;
-            }
-
-            .about-section::before,
-            .about-section::after {
-                font-size: 1.8em;
-            }
-
-            .about-section h2 {
-                font-size: 2.5em;
-                margin-bottom: 30px;
-            }
-
-            .about-content {
-                font-size: 1.15em;
-            }
-
-            .credentials {
-                padding: 32px 35px;
-            }
-
-            .credentials::before {
-                font-size: 3.5em;
-            }
-
-            .credentials h3 {
-                font-size: 1.5em;
-            }
-
-            .credentials li {
-                font-size: 1.05em;
-                padding-left: 40px;
-            }
-
-            .cta-section {
-                padding: 70px 35px;
-                margin: 50px 0 30px;
-            }
-
-            .cta-section h2 {
-                font-size: 2.5em;
-            }
-
-            .cta-section p {
-                font-size: 1.4em;
-            }
-
-            footer {
-                padding: 35px 25px;
-            }
-        }
-
-        /* Large Desktop (1100px+) */
-        @media (min-width: 1100px) {
-            .hero {
-                padding: 80px 40px 100px;
-                margin: 40px 0 60px;
-            }
-
-            .hero h1 {
-                font-size: 3.2em;
-            }
-
-            .hero .subtitle {
-                font-size: 1.5em;
-                margin-bottom: 50px;
-            }
-
-            .logo {
-                max-width: 260px;
-                margin-bottom: 35px;
-                padding: 22px;
-                border-radius: 28px;
-            }
-
-            .value-props {
-                gap: 30px;
-                margin: 50px auto 70px;
-            }
-
-            .value-prop {
-                padding: 35px 30px;
-                border-left-width: 8px;
-            }
-
-            .value-prop:hover {
-                transform: translateY(-8px) rotate(1deg);
-                box-shadow:
-                    6px 6px 0 rgba(61, 40, 23, 0.08),
-                    0 15px 35px rgba(61, 40, 23, 0.15);
-                border-left-width: 12px;
-            }
-
-            .value-prop h3 {
-                font-size: 1.6em;
-            }
-
-            .value-prop p {
-                font-size: 1.15em;
-                line-height: 1.7;
-            }
-
-            .cta-button {
-                padding: 20px 50px;
-                font-size: 1.35em;
-                margin-top: 30px;
-            }
-
-            .testimonials-section {
-                padding: 80px 30px;
-                margin: 60px 0;
-            }
-
-            .testimonials-section::before,
-            .testimonials-section::after {
-                font-size: 3em;
-            }
-
-            .testimonials-section::before {
-                left: 50px;
-            }
-
-            .testimonials-section::after {
-                right: 50px;
-            }
-
-            .testimonials-section h2 {
-                font-size: 3em;
-                margin-bottom: 60px;
-            }
-
-            .carousel-container {
-                max-width: 560px;
-                border-width: 3px;
-                border-radius: 15px;
-                box-shadow:
-                    0 0 0 8px var(--parchment-dark),
-                    0 0 0 11px var(--ink-medium),
-                    0 15px 40px rgba(61, 40, 23, 0.25);
-            }
-
-            .carousel-slide {
-                min-height: 550px;
-            }
-
-            .carousel-slide img {
-                max-height: 700px;
-            }
-
-            .carousel-button {
-                padding: 18px 22px;
-                font-size: 1.8em;
-            }
-
-            .carousel-button.prev {
-                left: -60px;
-            }
-
-            .carousel-button.next {
-                right: -60px;
-            }
-
-            .about-section {
-                padding: 80px 40px;
-                margin: 60px auto;
-                box-shadow:
-                    0 0 0 12px var(--parchment-dark),
-                    0 0 0 15px var(--ink-medium),
-                    0 20px 50px rgba(61, 40, 23, 0.2);
-            }
-
-            .about-section::before,
-            .about-section::after {
-                font-size: 2em;
-            }
-
-            .about-section::before {
-                top: 20px;
-                left: 20px;
-            }
-
-            .about-section::after {
-                bottom: 20px;
-                right: 20px;
-            }
-
-            .about-section h2 {
-                font-size: 3em;
-                margin-bottom: 35px;
-            }
-
-            .about-content {
-                font-size: 1.25em;
-                line-height: 1.9;
-            }
-
-            .credentials {
-                padding: 35px 40px;
-                margin: 40px 0;
-                border-left-width: 6px;
-                border-right-width: 6px;
-            }
-
-            .credentials::before {
-                font-size: 4em;
-                top: 10px;
-                left: 10px;
-            }
-
-            .credentials h3 {
-                font-size: 1.6em;
-                margin-bottom: 20px;
-            }
-
-            .credentials li {
-                padding: 12px 0 12px 40px;
-            }
-
-            .cta-section {
-                padding: 80px 40px;
-                margin: 60px 0 40px;
-                border-top-width: 4px;
-                border-bottom-width: 4px;
-            }
-
-            .cta-section h2 {
-                font-size: 3em;
-                margin-bottom: 25px;
-                text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.2);
-            }
-
-            .cta-section p {
-                font-size: 1.5em;
-                margin-bottom: 40px;
-            }
-
-            .cta-section .cta-button {
-                font-size: 1.6em;
-            }
-
-            footer {
-                padding: 40px 30px;
-                font-size: 1em;
-            }
-        }
-
-        /* Scroll-triggered animations */
-        .fade-in-view {
+        /* Primary CTA Button */
+        .cta-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-top: 48px;
             opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            animation: fadeSlideUp 0.8s ease-out 0.7s forwards;
         }
 
-        .fade-in-view.visible {
+        .cta-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            color: white;
+            padding: 18px 36px;
+            text-decoration: none;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            border-radius: 60px;
+            box-shadow:
+                0 4px 0 #0e7a6d,
+                0 8px 24px rgba(37, 211, 102, 0.35);
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-primary::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .cta-primary:hover {
+            transform: translateY(-4px);
+            box-shadow:
+                0 6px 0 #0e7a6d,
+                0 14px 36px rgba(37, 211, 102, 0.45);
+        }
+
+        .cta-primary:hover::before {
+            opacity: 1;
+        }
+
+        .cta-primary:active {
+            transform: translateY(-2px);
+            box-shadow:
+                0 3px 0 #0e7a6d,
+                0 8px 20px rgba(37, 211, 102, 0.3);
+        }
+
+        .cta-icon {
+            font-size: 1.3rem;
+        }
+
+        /* Testimonials Section */
+        .testimonials-section {
+            padding: 80px 0;
+            background: linear-gradient(180deg,
+                var(--parchment-cream) 0%,
+                var(--parchment-warm) 50%,
+                var(--parchment-cream) 100%);
+            position: relative;
+        }
+
+        .testimonials-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1px;
+            height: 60px;
+            background: linear-gradient(to bottom, transparent, var(--aged-gold));
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .section-label {
+            font-family: 'Spectral', serif;
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--burnt-umber);
+            margin-bottom: 16px;
+            display: block;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+
+        .section-label.visible {
             opacity: 1;
             transform: translateY(0);
         }
 
-        /* Floating WhatsApp Button - Mobile Only */
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 600;
+            color: var(--ink-black);
+            line-height: 1.2;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease 0.1s;
+        }
+
+        .section-title.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title .italic {
+            font-style: italic;
+            color: var(--oxblood);
+        }
+
+        /* Carousel */
+        .carousel-frame {
+            position: relative;
+            max-width: 480px;
+            margin: 0 auto;
+            background: var(--parchment-cream);
+            padding: 12px;
+            border: 3px solid var(--deep-sepia);
+            box-shadow:
+                0 0 0 1px var(--parchment-warm),
+                0 0 0 8px var(--aged-gold),
+                0 0 0 9px var(--deep-sepia),
+                0 20px 60px var(--shadow-deep);
+            opacity: 0;
+            transform: translateY(40px) scale(0.98);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .carousel-frame.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .carousel-inner {
+            position: relative;
+            overflow: hidden;
+            background: var(--ink-black);
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            flex-shrink: 0;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: auto;
+            display: block;
+            filter: contrast(1.02) saturate(1.05);
+        }
+
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 44px;
+            height: 44px;
+            background: var(--parchment-cream);
+            border: 2px solid var(--deep-sepia);
+            color: var(--deep-sepia);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .carousel-nav:hover {
+            background: var(--aged-gold);
+            color: white;
+            border-color: var(--aged-gold);
+        }
+
+        .carousel-nav.prev { left: -22px; }
+        .carousel-nav.next { right: -22px; }
+
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 32px;
+        }
+
+        .carousel-dot {
+            width: 10px;
+            height: 10px;
+            background: transparent;
+            border: 2px solid var(--burnt-umber);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            transform: rotate(45deg);
+        }
+
+        .carousel-dot.active {
+            background: var(--aged-gold);
+            border-color: var(--aged-gold);
+            transform: rotate(45deg) scale(1.3);
+        }
+
+        /* About Section */
+        .about-section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .about-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1px;
+            height: 80px;
+            background: linear-gradient(to bottom, transparent, var(--aged-gold), transparent);
+        }
+
+        .about-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .about-card {
+            background: var(--parchment-warm);
+            padding: 40px 32px;
+            border: 2px solid var(--aged-gold);
+            position: relative;
+            box-shadow:
+                8px 8px 0 var(--deep-sepia),
+                0 20px 60px var(--shadow-warm);
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .about-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .about-card::before,
+        .about-card::after {
+            content: '◆';
+            position: absolute;
+            font-size: 1.2rem;
+            color: var(--aged-gold);
+        }
+
+        .about-card::before { top: 16px; left: 16px; }
+        .about-card::after { bottom: 16px; right: 16px; }
+
+        .about-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .about-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+            font-weight: 600;
+            color: var(--ink-black);
+            margin-bottom: 8px;
+        }
+
+        .about-intro {
+            font-size: 1.05rem;
+            color: var(--burnt-umber);
+            text-align: center;
+            margin-bottom: 32px;
+            line-height: 1.8;
+        }
+
+        .credentials-box {
+            background: linear-gradient(135deg, rgba(201, 169, 98, 0.08) 0%, transparent 100%);
+            padding: 28px 24px;
+            border-left: 4px solid var(--aged-gold);
+            border-right: 4px solid var(--aged-gold);
+            margin: 32px 0;
+            position: relative;
+        }
+
+        .credentials-box::before {
+            content: '"';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 4rem;
+            color: var(--aged-gold);
+            opacity: 0.3;
+            line-height: 1;
+        }
+
+        .credentials-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--ink-black);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .credentials-list {
+            list-style: none;
+        }
+
+        .credentials-list li {
+            padding: 12px 0 12px 32px;
+            position: relative;
+            font-size: 1rem;
+            color: var(--deep-sepia);
+            border-bottom: 1px solid rgba(201, 169, 98, 0.2);
+        }
+
+        .credentials-list li:last-child {
+            border-bottom: none;
+        }
+
+        .credentials-list li::before {
+            content: '◆';
+            position: absolute;
+            left: 0;
+            top: 12px;
+            color: var(--aged-gold);
+            font-size: 0.8rem;
+        }
+
+        .about-conclusion {
+            font-size: 1rem;
+            color: var(--burnt-umber);
+            text-align: center;
+            line-height: 1.8;
+            font-style: italic;
+        }
+
+        /* Final CTA Section */
+        .final-cta {
+            padding: 80px 0;
+            background: var(--deep-sepia);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .final-cta::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse at 20% 50%, rgba(201, 169, 98, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(201, 169, 98, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .final-cta-content {
+            position: relative;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .final-cta-content.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .final-cta h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.6rem, 4vw, 2.5rem);
+            font-weight: 600;
+            color: var(--parchment-cream);
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .final-cta p {
+            font-family: 'Spectral', serif;
+            font-size: 1.2rem;
+            font-style: italic;
+            color: var(--parchment-warm);
+            margin-bottom: 36px;
+            opacity: 0.9;
+        }
+
+        .final-cta .cta-primary {
+            background: linear-gradient(135deg, #25D366 0%, #1ea952 100%);
+            box-shadow:
+                0 4px 0 #128C7E,
+                0 12px 30px rgba(37, 211, 102, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 24px;
+            background: var(--ink-black);
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .footer-brand {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--parchment-cream);
+            margin-bottom: 12px;
+        }
+
+        .footer-contact {
+            font-family: 'Spectral', serif;
+            font-size: 0.95rem;
+            color: var(--aged-gold);
+            margin-bottom: 8px;
+        }
+
+        .footer-version {
+            font-size: 0.8rem;
+            color: var(--burnt-umber);
+            opacity: 0.6;
+            margin-top: 16px;
+        }
+
+        /* Floating WhatsApp */
         .floating-whatsapp {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #25D366 0%, #1ea952 100%);
+            bottom: 24px;
+            right: 24px;
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
             border-radius: 50%;
             display: none;
             align-items: center;
             justify-content: center;
             box-shadow:
-                0 4px 0 #128C7E,
-                0 8px 20px rgba(37, 211, 102, 0.5);
+                0 4px 0 #0e7a6d,
+                0 8px 24px rgba(37, 211, 102, 0.5);
             z-index: 1000;
-            cursor: pointer;
             text-decoration: none;
             transition: all 0.3s ease;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        .floating-whatsapp::before {
-            content: "💬";
-            font-size: 2em;
+            animation: floatPulse 3s ease-in-out infinite;
         }
 
         .floating-whatsapp.visible {
             display: flex;
         }
 
+        .floating-whatsapp::before {
+            content: '💬';
+            font-size: 1.6rem;
+        }
+
         .floating-whatsapp:hover {
-            transform: scale(1.1);
+            transform: scale(1.1) translateY(-4px);
             box-shadow:
-                0 6px 0 #128C7E,
-                0 12px 30px rgba(37, 211, 102, 0.6);
+                0 6px 0 #0e7a6d,
+                0 14px 36px rgba(37, 211, 102, 0.6);
         }
 
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-10px);
-            }
+        @keyframes floatPulse {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
         }
 
-        /* Hide floating button on desktop */
-        @media (min-width: 769px) {
+        /* Desktop Styles */
+        @media (min-width: 768px) {
+            .timeline-spine {
+                display: block;
+            }
+
+            .logo {
+                max-width: 200px;
+                padding: 20px;
+            }
+
+            .value-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 32px;
+            }
+
+            .value-card {
+                padding: 36px 28px;
+            }
+
+            .value-card:nth-child(2) {
+                transform: translateY(60px);
+            }
+
+            .value-card:nth-child(2).visible {
+                transform: translateY(30px);
+            }
+
+            .carousel-frame {
+                max-width: 520px;
+                padding: 16px;
+            }
+
+            .carousel-nav {
+                width: 52px;
+                height: 52px;
+                font-size: 1.8rem;
+            }
+
+            .carousel-nav.prev { left: -26px; }
+            .carousel-nav.next { right: -26px; }
+
+            .about-card {
+                padding: 56px 48px;
+            }
+
+            .credentials-box {
+                padding: 36px 32px;
+            }
+
             .floating-whatsapp {
                 display: none !important;
             }
         }
 
-        /* Improve focus states for accessibility */
-        .cta-button:focus,
-        .carousel-button:focus,
-        .indicator:focus,
-        .floating-whatsapp:focus {
-            outline: 3px solid var(--amber-accent);
-            outline-offset: 3px;
+        @media (min-width: 1024px) {
+            .hero {
+                padding: 100px 0;
+            }
+
+            .logo {
+                max-width: 240px;
+            }
+
+            .value-section {
+                padding: 60px 0 120px;
+            }
+
+            .value-grid {
+                gap: 40px;
+            }
+
+            .value-card {
+                padding: 44px 36px;
+            }
+
+            .testimonials-section {
+                padding: 120px 0;
+            }
+
+            .carousel-frame {
+                max-width: 560px;
+            }
+
+            .about-section {
+                padding: 140px 0;
+            }
+
+            .about-card {
+                padding: 64px 56px;
+            }
+
+            .final-cta {
+                padding: 100px 0;
+            }
         }
 
-        /* Performance optimization - will-change */
-        .value-prop,
-        .carousel-track,
-        .cta-button,
-        .floating-whatsapp {
-            will-change: transform;
-        }
-
-        /* Reduce motion for users who prefer it */
+        /* Reduced motion */
         @media (prefers-reduced-motion: reduce) {
             *,
             *::before,
@@ -1176,98 +911,148 @@
                 transition-duration: 0.01ms !important;
             }
         }
+
+        /* Focus states */
+        .cta-primary:focus,
+        .carousel-nav:focus,
+        .carousel-dot:focus,
+        .floating-whatsapp:focus {
+            outline: 3px solid var(--aged-gold);
+            outline-offset: 4px;
+        }
     </style>
 </head>
 <body>
-    <div class="ornament ornament-tl"></div>
-    <div class="ornament ornament-tr"></div>
+    <!-- Timeline Spine (Desktop) -->
+    <div class="timeline-spine">
+        <div class="timeline-marker" style="top: 15%;" data-section="hero"></div>
+        <div class="timeline-marker" style="top: 40%;" data-section="testimonials"></div>
+        <div class="timeline-marker" style="top: 65%;" data-section="about"></div>
+        <div class="timeline-marker" style="top: 85%;" data-section="cta"></div>
+    </div>
 
     <!-- Hero Section -->
-    <section class="hero">
+    <section class="hero" id="hero">
         <div class="container">
-            <img src="assets/images/logo.png" alt="Método Historia Logo" class="logo">
-            <h1>Clases Particulares de Historia</h1>
-            <p class="subtitle">Para Nivel Secundario • Online en Argentina</p>
+            <div class="hero-content">
+                <div class="logo-wrapper">
+                    <img src="assets/images/logo.png" alt="Método Historia" class="logo">
+                </div>
 
-            <div class="value-props">
-                <div class="value-prop">
-                    <h3>🎯 Clases Individuales</h3>
-                    <p>Por Meet o Zoom, adaptadas a tu ritmo y necesidades específicas</p>
-                </div>
-                <div class="value-prop">
-                    <h3>💡 Explicaciones Sencillas</h3>
-                    <p>Incluso para situaciones de emergencia. Si no entendés historia, vas a poder entender</p>
-                </div>
-                <div class="value-prop">
-                    <h3>📚 Seguimiento Personalizado</h3>
-                    <p>Acompañamiento hasta que rindas el examen con seguridad y confianza</p>
+                <p class="hero-eyebrow">Clases Online en Argentina</p>
+
+                <h1>Clases Particulares<br>de <span class="accent">Historia</span></h1>
+
+                <p class="hero-subtitle">
+                    Para Nivel Secundario <span>•</span> Explicaciones que realmente entendés
+                </p>
+
+                <section class="value-section">
+                    <div class="value-grid">
+                        <div class="value-card">
+                            <span class="value-icon">🎯</span>
+                            <h3>Clases Individuales</h3>
+                            <p>Por Meet o Zoom, adaptadas a tu ritmo y necesidades específicas</p>
+                        </div>
+                        <div class="value-card">
+                            <span class="value-icon">💡</span>
+                            <h3>Explicaciones Sencillas</h3>
+                            <p>Incluso para situaciones de emergencia. Si no entendés historia, vas a poder entender</p>
+                        </div>
+                        <div class="value-card">
+                            <span class="value-icon">📚</span>
+                            <h3>Seguimiento Personalizado</h3>
+                            <p>Acompañamiento hasta que rindas el examen con seguridad y confianza</p>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="cta-wrapper">
+                    <a href="https://wa.me/5493517158688?text=Hola!%20Me%20interesa%20recibir%20clases%20particulares%20de%20historia" class="cta-primary" target="_blank">
+                        <span class="cta-icon">💬</span>
+                        Consultar por WhatsApp
+                    </a>
                 </div>
             </div>
-
-            <a href="https://wa.me/5493517158688?text=Hola!%20Me%20interesa%20recibir%20clases%20particulares%20de%20historia" class="cta-button" target="_blank">Consultar por WhatsApp</a>
         </div>
     </section>
 
-    <!-- Testimonials Carousel -->
-    <section class="testimonials-section fade-in-view">
+    <!-- Testimonials Section -->
+    <section class="testimonials-section" id="testimonials">
         <div class="container">
-            <h2>Lo que dicen nuestros alumnos</h2>
+            <header class="section-header">
+                <span class="section-label">Testimonios</span>
+                <h2 class="section-title">Lo que dicen <span class="italic">nuestros alumnos</span></h2>
+            </header>
 
-            <div class="carousel-container">
-                <div class="carousel-track" id="carouselTrack">
-                    <div class="carousel-slide">
-                        <img src="assets/images/testimonial-1.jpg" alt="Testimonio 1 - Agradecimiento por las clases">
-                    </div>
-                    <div class="carousel-slide">
-                        <img src="assets/images/testimonial-2.jpg" alt="Testimonio 2 - Estudiante de secundario">
-                    </div>
-                    <div class="carousel-slide">
-                        <img src="assets/images/testimonial-3.jpg" alt="Testimonio 3 - Comentario sobre cronología">
-                    </div>
-                    <div class="carousel-slide">
-                        <img src="assets/images/testimonial-4.jpg" alt="Testimonio 4 - Padre agradecido">
+            <div class="carousel-frame">
+                <div class="carousel-inner">
+                    <div class="carousel-track" id="carouselTrack">
+                        <div class="carousel-slide">
+                            <img src="assets/images/testimonial-1.jpg" alt="Testimonio 1 - Agradecimiento por las clases">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="assets/images/testimonial-2.jpg" alt="Testimonio 2 - Estudiante de secundario">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="assets/images/testimonial-3.jpg" alt="Testimonio 3 - Comentario sobre cronología">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="assets/images/testimonial-4.jpg" alt="Testimonio 4 - Padre agradecido">
+                        </div>
                     </div>
                 </div>
-
-                <button class="carousel-button prev" onclick="moveCarousel(-1)" aria-label="Anterior">‹</button>
-                <button class="carousel-button next" onclick="moveCarousel(1)" aria-label="Siguiente">›</button>
+                <button class="carousel-nav prev" onclick="moveCarousel(-1)" aria-label="Anterior">‹</button>
+                <button class="carousel-nav next" onclick="moveCarousel(1)" aria-label="Siguiente">›</button>
             </div>
 
-            <div class="carousel-indicators" id="indicators"></div>
+            <div class="carousel-dots" id="carouselDots"></div>
         </div>
     </section>
 
     <!-- About Section -->
-    <section class="about-section fade-in-view">
-        <div class="container">
-            <h2>Sobre la Profesora Agustina</h2>
-            <div class="about-content">
-                <p>Con más de 10 años de experiencia enseñando Historia, la profesora Agustina se destaca por su capacidad de hacer comprensible incluso los temas más complejos.</p>
+    <section class="about-section" id="about">
+        <div class="about-container">
+            <div class="about-card">
+                <header class="about-header">
+                    <h2 class="about-title">Sobre la Profesora Agustina</h2>
+                </header>
 
-                <div class="credentials">
-                    <h3>Formación Académica</h3>
-                    <ul>
-                        <li><strong>Licenciada en Historia</strong> - Universidad Nacional de Córdoba (UNC)</li>
-                        <li><strong>Profesora en Historia</strong> - Universidad Nacional de Córdoba (UNC)</li>
+                <p class="about-intro">
+                    Con más de 10 años de experiencia enseñando Historia, la profesora Agustina se destaca por su capacidad de hacer comprensible incluso los temas más complejos.
+                </p>
+
+                <div class="credentials-box">
+                    <h3 class="credentials-title">Formación Académica</h3>
+                    <ul class="credentials-list">
+                        <li><strong>Licenciada en Historia</strong> — Universidad Nacional de Córdoba (UNC)</li>
+                        <li><strong>Profesora en Historia</strong> — Universidad Nacional de Córdoba (UNC)</li>
                         <li><strong>10+ años de experiencia</strong> dando clases particulares</li>
                     </ul>
                 </div>
 
-                <p>Su metodología se basa en explicaciones claras y sencillas, adaptadas a cada estudiante, creando un ambiente de confianza donde podés preguntar sin miedo. Ideal para estudiantes que necesitan apoyo para aprobar, desde situaciones de emergencia hasta seguimiento completo durante todo el año.</p>
+                <p class="about-conclusion">
+                    Su metodología se basa en explicaciones claras y sencillas, adaptadas a cada estudiante, creando un ambiente de confianza donde podés preguntar sin miedo.
+                </p>
             </div>
         </div>
     </section>
 
-    <!-- CTA Section -->
-    <section class="cta-section fade-in-view">
+    <!-- Final CTA -->
+    <section class="final-cta" id="cta">
         <div class="container">
-            <h2>¿Tu hijo necesita ayuda con Historia?</h2>
-            <p>Conseguí que apruebe con explicaciones que realmente entienda</p>
-            <a href="https://wa.me/5493517158688?text=Hola!%20Me%20interesa%20recibir%20clases%20particulares%20de%20historia" class="cta-button" target="_blank">Consultar Ahora</a>
+            <div class="final-cta-content">
+                <h2>¿Tu hijo necesita ayuda con Historia?</h2>
+                <p>Conseguí que apruebe con explicaciones que realmente entienda</p>
+                <a href="https://wa.me/5493517158688?text=Hola!%20Me%20interesa%20recibir%20clases%20particulares%20de%20historia" class="cta-primary" target="_blank">
+                    <span class="cta-icon">💬</span>
+                    Consultar Ahora
+                </a>
+            </div>
         </div>
     </section>
 
-    <!-- Floating WhatsApp Button (Mobile) -->
+    <!-- Floating WhatsApp -->
     <a href="https://wa.me/5493517158688?text=Hola!%20Me%20interesa%20recibir%20clases%20particulares%20de%20historia"
        class="floating-whatsapp"
        id="floatingWhatsapp"
@@ -1276,54 +1061,42 @@
 
     <!-- Footer -->
     <footer>
-        <div class="container">
-            <p>&copy; 2026 Método Historia - Clases Particulares de Historia Online</p>
-            <p>📱 WhatsApp: +54 351 715-8688</p>
-            <p style="font-size: 0.85em; opacity: 0.7; margin-top: 10px;">v1.0.0</p>
+        <div class="footer-content">
+            <p class="footer-brand">Método Historia — Clases Particulares de Historia Online</p>
+            <p class="footer-contact">📱 WhatsApp: +54 351 715-8688</p>
+            <p class="footer-version">v1.0.0</p>
         </div>
     </footer>
 
     <script>
-        // Carousel functionality
+        // Carousel
         let currentSlide = 0;
         const track = document.getElementById('carouselTrack');
         const slides = document.querySelectorAll('.carousel-slide');
         const totalSlides = slides.length;
-        const indicatorsContainer = document.getElementById('indicators');
+        const dotsContainer = document.getElementById('carouselDots');
 
-        // Create indicators
+        // Create dots
         for (let i = 0; i < totalSlides; i++) {
-            const indicator = document.createElement('div');
-            indicator.classList.add('indicator');
-            if (i === 0) indicator.classList.add('active');
-            indicator.onclick = () => goToSlide(i);
-            indicatorsContainer.appendChild(indicator);
+            const dot = document.createElement('button');
+            dot.classList.add('carousel-dot');
+            if (i === 0) dot.classList.add('active');
+            dot.onclick = () => goToSlide(i);
+            dot.setAttribute('aria-label', `Ir al testimonio ${i + 1}`);
+            dotsContainer.appendChild(dot);
         }
 
-        const indicators = document.querySelectorAll('.indicator');
+        const dots = document.querySelectorAll('.carousel-dot');
 
         function updateCarousel() {
             track.style.transform = `translateX(-${currentSlide * 100}%)`;
-
-            // Update indicators
-            indicators.forEach((indicator, index) => {
-                if (index === currentSlide) {
-                    indicator.classList.add('active');
-                } else {
-                    indicator.classList.remove('active');
-                }
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentSlide);
             });
         }
 
-        function moveCarousel(direction) {
-            currentSlide += direction;
-
-            if (currentSlide < 0) {
-                currentSlide = totalSlides - 1;
-            } else if (currentSlide >= totalSlides) {
-                currentSlide = 0;
-            }
-
+        function moveCarousel(dir) {
+            currentSlide = (currentSlide + dir + totalSlides) % totalSlides;
             updateCarousel();
         }
 
@@ -1332,87 +1105,56 @@
             updateCarousel();
         }
 
-        // Auto-advance carousel every 5 seconds
-        setInterval(() => {
-            moveCarousel(1);
-        }, 5000);
+        // Auto-advance
+        setInterval(() => moveCarousel(1), 5000);
 
-        // Touch/Swipe support for carousel
+        // Touch support
         let touchStartX = 0;
-        let touchEndX = 0;
-        const carouselContainer = document.querySelector('.carousel-container');
+        const carouselFrame = document.querySelector('.carousel-frame');
 
-        carouselContainer.addEventListener('touchstart', (e) => {
+        carouselFrame.addEventListener('touchstart', e => {
             touchStartX = e.changedTouches[0].screenX;
         }, { passive: true });
 
-        carouselContainer.addEventListener('touchend', (e) => {
-            touchEndX = e.changedTouches[0].screenX;
-            handleSwipe();
+        carouselFrame.addEventListener('touchend', e => {
+            const diff = touchStartX - e.changedTouches[0].screenX;
+            if (Math.abs(diff) > 50) moveCarousel(diff > 0 ? 1 : -1);
         }, { passive: true });
 
-        function handleSwipe() {
-            const swipeThreshold = 50; // minimum distance for swipe
-            const diff = touchStartX - touchEndX;
-
-            if (Math.abs(diff) > swipeThreshold) {
-                if (diff > 0) {
-                    // Swiped left - next slide
-                    moveCarousel(1);
-                } else {
-                    // Swiped right - previous slide
-                    moveCarousel(-1);
-                }
-            }
-        }
-
-        // Scroll-triggered animations
+        // Intersection Observer for animations
         const observerOptions = {
             threshold: 0.15,
-            rootMargin: '0px 0px -100px 0px'
+            rootMargin: '0px 0px -80px 0px'
         };
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
+
+                    // Update timeline markers
+                    const markers = document.querySelectorAll('.timeline-marker');
+                    const sectionId = entry.target.id || entry.target.closest('section')?.id;
+                    markers.forEach(marker => {
+                        marker.classList.toggle('active', marker.dataset.section === sectionId);
+                    });
                 }
             });
         }, observerOptions);
 
-        document.querySelectorAll('.fade-in-view').forEach(el => {
+        // Observe elements
+        document.querySelectorAll('.value-card, .carousel-frame, .about-card, .final-cta-content, .section-label, .section-title').forEach(el => {
             observer.observe(el);
         });
 
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Floating WhatsApp button control
-        const floatingWhatsapp = document.getElementById('floatingWhatsapp');
-        let scrollTimeout;
-
+        // Floating WhatsApp
+        const floatingBtn = document.getElementById('floatingWhatsapp');
         window.addEventListener('scroll', () => {
-            // Clear previous timeout
-            clearTimeout(scrollTimeout);
-
-            // Show button after scrolling down 300px
-            if (window.scrollY > 300) {
-                floatingWhatsapp.classList.add('visible');
-            } else {
-                floatingWhatsapp.classList.remove('visible');
-            }
+            floatingBtn.classList.toggle('visible', window.scrollY > 400);
         });
+
+        // Activate first timeline marker
+        document.querySelector('.timeline-marker[data-section="hero"]')?.classList.add('active');
     </script>
 </body>
 </html>
