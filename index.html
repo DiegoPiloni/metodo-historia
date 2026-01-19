@@ -481,8 +481,14 @@
             width: max-content;
         }
 
-        .carousel-track:hover {
+        .carousel-track.paused {
             animation-play-state: paused;
+        }
+
+        @media (min-width: 768px) {
+            .carousel-track:hover {
+                animation-play-state: paused;
+            }
         }
 
         @keyframes infiniteScroll {
@@ -1124,6 +1130,17 @@
         window.addEventListener('scroll', () => {
             floatingBtn.classList.toggle('visible', window.scrollY > 400);
         });
+
+        // Mobile carousel touch pause
+        const carouselTrack = document.querySelector('.carousel-track');
+        if (carouselTrack && window.innerWidth < 768) {
+            carouselTrack.addEventListener('touchstart', () => {
+                carouselTrack.classList.add('paused');
+            });
+            carouselTrack.addEventListener('touchend', () => {
+                carouselTrack.classList.remove('paused');
+            });
+        }
 
         // Activate first timeline marker
         document.querySelector('.timeline-marker[data-section="hero"]')?.classList.add('active');
