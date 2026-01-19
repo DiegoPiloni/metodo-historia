@@ -818,6 +818,28 @@
             object-fit: contain;
         }
 
+        .footer-maps {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Spectral', serif;
+            font-size: 0.95rem;
+            color: var(--aged-gold);
+            text-decoration: none;
+            margin-top: 8px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-maps:hover {
+            color: var(--parchment-cream);
+        }
+
+        .footer-maps-icon {
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+        }
+
         .footer-version {
             font-size: 0.8rem;
             color: var(--burnt-umber);
@@ -1214,6 +1236,10 @@
             <a href="https://www.instagram.com/profe.particular.historia/" class="footer-instagram" target="_blank">
                 <img src="assets/images/instagram.png" alt="Instagram" class="footer-instagram-icon">
                 @profe.particular.historia
+            </a>
+            <a href="https://maps.app.goo.gl/kWSfKjYSQJ3mp1477" class="footer-maps" target="_blank">
+                <img src="assets/images/google-maps.png" alt="Google Maps" class="footer-maps-icon">
+                Ver ubicación en Google Maps
             </a>
             <p class="footer-version">v1.0.1</p>
         </div>
