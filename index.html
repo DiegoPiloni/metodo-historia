@@ -521,7 +521,7 @@
             background: var(--parchment-warm);
             border: 1px solid var(--aged-gold);
             border-radius: 50%;
-            display: flex;
+            display: none;
             align-items: center;
             justify-content: center;
             cursor: pointer;
@@ -529,6 +529,12 @@
             opacity: 0.7;
             transition: all 0.3s ease;
             box-shadow: 0 2px 8px var(--shadow-warm);
+        }
+
+        @media (min-width: 768px) {
+            .carousel-arrow {
+                display: flex;
+            }
         }
 
         .carousel-arrow:hover {
