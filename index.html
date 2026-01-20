@@ -852,8 +852,8 @@
         }
 
         .footer-whatsapp-icon {
-            width: 20px;
-            height: 20px;
+            width: 30px;
+            height: 30px;
             object-fit: contain;
         }
 
@@ -875,6 +875,7 @@
         .footer-instagram-icon {
             width: 20px;
             height: 20px;
+            min-width: 30px;
             object-fit: contain;
         }
 
@@ -896,6 +897,7 @@
         .footer-maps-icon {
             width: 20px;
             height: 20px;
+            min-width: 30px;
             object-fit: contain;
         }
 
@@ -1246,25 +1248,25 @@
     <nav class="mobile-menu" id="mobileMenu" aria-label="Menú principal">
         <ul class="mobile-menu-nav">
             <li>
-                <a href="#hero" class="mobile-menu-link">
+                <a href="#metodo" class="mobile-menu-link">
                     <span class="mobile-menu-icon">🏠</span>
                     Método Historia
                 </a>
             </li>
             <li>
-                <a href="#testimonials" class="mobile-menu-link">
+                <a href="#testimonios" class="mobile-menu-link">
                     <span class="mobile-menu-icon">💬</span>
                     Testimonios
                 </a>
             </li>
             <li>
-                <a href="#about" class="mobile-menu-link">
+                <a href="#profesora" class="mobile-menu-link">
                     <span class="mobile-menu-icon">👩‍🏫</span>
                     Profesora
                 </a>
             </li>
             <li>
-                <a href="#footer" class="mobile-menu-link">
+                <a href="#redes" class="mobile-menu-link">
                     <span class="mobile-menu-icon">📱</span>
                     Redes
                 </a>
@@ -1274,22 +1276,22 @@
 
     <!-- Timeline Spine (Desktop) -->
     <div class="timeline-spine">
-        <div class="timeline-marker" style="top: 15%;" data-section="hero">
-            <a href="#hero" class="timeline-label">Método Historia</a>
+        <div class="timeline-marker" style="top: 15%;" data-section="metodo">
+            <a href="#metodo" class="timeline-label">Método Historia</a>
         </div>
-        <div class="timeline-marker" style="top: 40%;" data-section="testimonials">
-            <a href="#testimonials" class="timeline-label">Testimonios</a>
+        <div class="timeline-marker" style="top: 40%;" data-section="testimonios">
+            <a href="#testimonios" class="timeline-label">Testimonios</a>
         </div>
-        <div class="timeline-marker" style="top: 65%;" data-section="about">
-            <a href="#about" class="timeline-label">Profesora</a>
+        <div class="timeline-marker" style="top: 65%;" data-section="profesora">
+            <a href="#profesora" class="timeline-label">Profesora</a>
         </div>
         <div class="timeline-marker" style="top: 85%;" data-section="cta">
-            <a href="#footer" class="timeline-label">Redes</a>
+            <a href="#redes" class="timeline-label">Redes</a>
         </div>
     </div>
 
     <!-- Hero Section -->
-    <section class="hero" id="hero">
+    <section class="hero" id="metodo">
         <div class="container">
             <div class="hero-content">
                 <div class="logo-wrapper">
@@ -1301,7 +1303,7 @@
                 <h1>Clases Particulares<br>de <span class="accent">Historia</span></h1>
 
                 <div class="hero-subtitle">
-                    <span class="hero-subtitle-item">Para Nivel Secundario</span>
+                    <span class="hero-subtitle-item">Nivel Secundario</span>
                     <span class="hero-subtitle-separator">•</span>
                     <span class="hero-subtitle-item">Profesora Agustina</span>
                 </div>
@@ -1342,7 +1344,7 @@
     </section>
 
     <!-- Testimonials Section -->
-    <section class="testimonials-section" id="testimonials">
+    <section class="testimonials-section" id="testimonios">
         <div class="container">
             <header class="section-header">
                 <span class="section-label">Testimonios</span>
@@ -1417,7 +1419,7 @@
     </section>
 
     <!-- About Section -->
-    <section class="about-section" id="about">
+    <section class="about-section" id="profesora">
         <div class="about-container">
             <div class="about-card">
                 <header class="about-header">
@@ -1469,7 +1471,7 @@
     </a>
 
     <!-- Footer -->
-    <footer id="footer">
+    <footer id="redes">
         <div class="footer-content">
             <p class="footer-brand">Método Historia — Clases Particulares de Historia</p>
             <div class="footer-links">
@@ -1663,7 +1665,7 @@
         }
 
         // Activate first timeline marker
-        document.querySelector('.timeline-marker[data-section="hero"]')?.classList.add('active');
+        document.querySelector('.timeline-marker[data-section="metodo"]')?.classList.add('active');
     </script>
 </body>
 </html>
