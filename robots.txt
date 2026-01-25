@@ -1,0 +1,6 @@
+# Robots.txt for metodohistoria.com.ar
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://metodohistoria.com.ar/sitemap.xml
