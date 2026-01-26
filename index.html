@@ -182,6 +182,7 @@
             padding: 30px 0;
             position: relative;
             overflow: hidden;
+            contain: layout style;
         }
 
         .hero::before {
@@ -237,18 +238,18 @@
             max-width: 160px;
             height: auto;
             filter: drop-shadow(0 8px 24px var(--shadow-warm));
-            opacity: 0;
-            animation:
-                fadeScaleIn 1s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s forwards,
-                logoBounce 3s ease-in-out 1.2s infinite;
+            opacity: 1;
+            animation: logoBounce 3s ease-in-out 1s infinite;
             -webkit-touch-callout: none;
             -webkit-user-select: none;
             user-select: none;
+            will-change: transform;
+            transform: translateZ(0);
         }
 
         @keyframes logoBounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-12px); }
+            0%, 100% { transform: translate3d(0, 0, 0); }
+            50% { transform: translate3d(0, -12px, 0); }
         }
 
         .hero h1 {
@@ -305,11 +306,11 @@
         @keyframes fadeScaleIn {
             from {
                 opacity: 0;
-                transform: scale(0.9);
+                transform: scale3d(0.9, 0.9, 1);
             }
             to {
                 opacity: 1;
-                transform: scale(1);
+                transform: scale3d(1, 1, 1);
             }
         }
 
@@ -476,6 +477,7 @@
                 var(--parchment-warm) 50%,
                 var(--parchment-cream) 100%);
             position: relative;
+            contain: layout style;
         }
 
         .testimonials-section::before {
@@ -557,6 +559,8 @@
             display: flex;
             gap: 24px;
             width: max-content;
+            will-change: transform;
+            transform: translateZ(0);
         }
 
         .carousel-slide {
@@ -566,6 +570,7 @@
             overflow: hidden;
             box-shadow: 0 8px 32px var(--shadow-warm);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            contain: layout style paint;
         }
 
         .carousel-slide:hover {
@@ -642,6 +647,7 @@
         .about-section {
             padding: 100px 0;
             position: relative;
+            contain: layout style;
         }
 
         .about-section::before {
@@ -961,6 +967,8 @@
             text-decoration: none;
             transition: all 0.3s ease;
             animation: floatPulse 3s ease-in-out infinite;
+            will-change: transform;
+            transform: translateZ(0);
         }
 
         .floating-whatsapp.visible {
@@ -981,8 +989,8 @@
         }
 
         @keyframes floatPulse {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
+            0%, 100% { transform: translate3d(0, 0, 0); }
+            50% { transform: translate3d(0, -8px, 0); }
         }
 
         /* Mobile Hamburger Menu */
@@ -1411,7 +1419,7 @@
 
                 <div class="cta-wrapper">
                     <a href="https://wa.me/5493513115015?text=Hola!%20Quisiera%20consultar%20por%20las%20clases%20particulares%20de%20Historia" class="cta-primary" target="_blank" onclick="gtag('event', 'conversion', {'send_to': 'AW-16937247234/oXWWCIHWqucbEILEp4w_'});">
-                        <img src="assets/images/whatsapp.webp" alt="WhatsApp" class="cta-whatsapp-icon" width="32" height="32">
+                        <img src="assets/images/whatsapp.webp" alt="WhatsApp" class="cta-whatsapp-icon" width="32" height="32" loading="eager" decoding="async">
                         Consultar por WhatsApp
                     </a>
                 </div>
@@ -1464,93 +1472,93 @@
                     <div class="carousel-slide">
                         <picture>
                             <source srcset="assets/images/testimonial-1.webp" type="image/webp">
-                            <img src="assets/images/testimonial-1.jpg" alt="Testimonio 1 - Agradecimiento por las clases" width="280" height="501" loading="lazy">
+                            <img src="assets/images/testimonial-1.jpg" alt="Testimonio 1 - Agradecimiento por las clases" width="280" height="501" loading="lazy" decoding="async">
                         </picture>
                     </div>
                     <div class="carousel-slide">
                         <picture>
                             <source srcset="assets/images/testimonial-2.webp" type="image/webp">
-                            <img src="assets/images/testimonial-2.jpg" alt="Testimonio 2 - Estudiante de secundario" width="280" height="501" loading="lazy">
+                            <img src="assets/images/testimonial-2.jpg" alt="Testimonio 2 - Estudiante de secundario" width="280" height="501" loading="lazy" decoding="async">
                         </picture>
                     </div>
                     <div class="carousel-slide">
                         <picture>
                             <source srcset="assets/images/testimonial-3.webp" type="image/webp">
-                            <img src="assets/images/testimonial-3.jpg" alt="Testimonio 3 - Comentario sobre cronología" width="280" height="503" loading="lazy">
+                            <img src="assets/images/testimonial-3.jpg" alt="Testimonio 3 - Comentario sobre cronología" width="280" height="503" loading="lazy" decoding="async">
                         </picture>
                     </div>
                     <div class="carousel-slide">
                         <picture>
                             <source srcset="assets/images/testimonial-4.webp" type="image/webp">
-                            <img src="assets/images/testimonial-4.jpg" alt="Testimonio 4 - Padre agradecido" width="280" height="498" loading="lazy">
+                            <img src="assets/images/testimonial-4.jpg" alt="Testimonio 4 - Padre agradecido" width="280" height="498" loading="lazy" decoding="async">
                         </picture>
                     </div>
                     <div class="carousel-slide">
                         <picture>
                             <source srcset="assets/images/testimonial-5.webp" type="image/webp">
-                            <img src="assets/images/testimonial-5.jpg" alt="Testimonio 5" width="280" height="500" loading="lazy">
+                            <img src="assets/images/testimonial-5.jpg" alt="Testimonio 5" width="280" height="500" loading="lazy" decoding="async">
                         </picture>
                     </div>
                     <!-- Set 2 (duplicate for infinite scroll) -->
                     <div class="carousel-slide">
                         <picture>
                             <source srcset="assets/images/testimonial-1.webp" type="image/webp">
-                            <img src="assets/images/testimonial-1.jpg" alt="Testimonio 1 - Agradecimiento por las clases" width="280" height="501" loading="lazy">
+                            <img src="assets/images/testimonial-1.jpg" alt="Testimonio 1 - Agradecimiento por las clases" width="280" height="501" loading="lazy" decoding="async">
                         </picture>
                     </div>
                     <div class="carousel-slide">
                         <picture>
                             <source srcset="assets/images/testimonial-2.webp" type="image/webp">
-                            <img src="assets/images/testimonial-2.jpg" alt="Testimonio 2 - Estudiante de secundario" width="280" height="501" loading="lazy">
+                            <img src="assets/images/testimonial-2.jpg" alt="Testimonio 2 - Estudiante de secundario" width="280" height="501" loading="lazy" decoding="async">
                         </picture>
                     </div>
                     <div class="carousel-slide">
                         <picture>
                             <source srcset="assets/images/testimonial-3.webp" type="image/webp">
-                            <img src="assets/images/testimonial-3.jpg" alt="Testimonio 3 - Comentario sobre cronología" width="280" height="503" loading="lazy">
+                            <img src="assets/images/testimonial-3.jpg" alt="Testimonio 3 - Comentario sobre cronología" width="280" height="503" loading="lazy" decoding="async">
                         </picture>
                     </div>
                     <div class="carousel-slide">
                         <picture>
                             <source srcset="assets/images/testimonial-4.webp" type="image/webp">
-                            <img src="assets/images/testimonial-4.jpg" alt="Testimonio 4 - Padre agradecido" width="280" height="498" loading="lazy">
+                            <img src="assets/images/testimonial-4.jpg" alt="Testimonio 4 - Padre agradecido" width="280" height="498" loading="lazy" decoding="async">
                         </picture>
                     </div>
                     <div class="carousel-slide">
                         <picture>
                             <source srcset="assets/images/testimonial-5.webp" type="image/webp">
-                            <img src="assets/images/testimonial-5.jpg" alt="Testimonio 5" width="280" height="500" loading="lazy">
+                            <img src="assets/images/testimonial-5.jpg" alt="Testimonio 5" width="280" height="500" loading="lazy" decoding="async">
                         </picture>
                     </div>
                     <!-- Set 3 (duplicate for infinite scroll) -->
                     <div class="carousel-slide">
                         <picture>
                             <source srcset="assets/images/testimonial-1.webp" type="image/webp">
-                            <img src="assets/images/testimonial-1.jpg" alt="Testimonio 1 - Agradecimiento por las clases" width="280" height="501" loading="lazy">
+                            <img src="assets/images/testimonial-1.jpg" alt="Testimonio 1 - Agradecimiento por las clases" width="280" height="501" loading="lazy" decoding="async">
                         </picture>
                     </div>
                     <div class="carousel-slide">
                         <picture>
                             <source srcset="assets/images/testimonial-2.webp" type="image/webp">
-                            <img src="assets/images/testimonial-2.jpg" alt="Testimonio 2 - Estudiante de secundario" width="280" height="501" loading="lazy">
+                            <img src="assets/images/testimonial-2.jpg" alt="Testimonio 2 - Estudiante de secundario" width="280" height="501" loading="lazy" decoding="async">
                         </picture>
                     </div>
                     <div class="carousel-slide">
                         <picture>
                             <source srcset="assets/images/testimonial-3.webp" type="image/webp">
-                            <img src="assets/images/testimonial-3.jpg" alt="Testimonio 3 - Comentario sobre cronología" width="280" height="503" loading="lazy">
+                            <img src="assets/images/testimonial-3.jpg" alt="Testimonio 3 - Comentario sobre cronología" width="280" height="503" loading="lazy" decoding="async">
                         </picture>
                     </div>
                     <div class="carousel-slide">
                         <picture>
                             <source srcset="assets/images/testimonial-4.webp" type="image/webp">
-                            <img src="assets/images/testimonial-4.jpg" alt="Testimonio 4 - Padre agradecido" width="280" height="498" loading="lazy">
+                            <img src="assets/images/testimonial-4.jpg" alt="Testimonio 4 - Padre agradecido" width="280" height="498" loading="lazy" decoding="async">
                         </picture>
                     </div>
                     <div class="carousel-slide">
                         <picture>
                             <source srcset="assets/images/testimonial-5.webp" type="image/webp">
-                            <img src="assets/images/testimonial-5.jpg" alt="Testimonio 5" width="280" height="500" loading="lazy">
+                            <img src="assets/images/testimonial-5.jpg" alt="Testimonio 5" width="280" height="500" loading="lazy" decoding="async">
                         </picture>
                     </div>
                     </div>
@@ -1570,7 +1578,10 @@
             <div class="about-card">
                 <header class="about-header">
                     <h2 class="about-title">Sobre la Profesora Agustina</h2>
-                    <img src="assets/images/agus.webp" alt="Profesora Agustina" class="about-photo" width="140" height="140" loading="lazy" oncontextmenu="return false;">
+<picture>
+                        <source srcset="assets/images/agus-140.webp 1x, assets/images/agus-280.webp 2x" type="image/webp">
+                        <img src="assets/images/agus-140.webp" alt="Profesora Agustina" class="about-photo" width="140" height="140" loading="lazy" oncontextmenu="return false;">
+                    </picture>
                 </header>
 
                 <p class="about-intro">
@@ -1600,7 +1611,7 @@
                 <h2>¿Tu hijo necesita ayuda con Historia?</h2>
                 <p>Conseguí que apruebe con explicaciones que realmente entienda</p>
                 <a href="https://wa.me/5493513115015?text=Hola!%20Quisiera%20consultar%20por%20las%20clases%20particulares%20de%20Historia" class="cta-primary" target="_blank" onclick="gtag('event', 'conversion', {'send_to': 'AW-16937247234/oXWWCIHWqucbEILEp4w_'});">
-                    <img src="assets/images/whatsapp.webp" alt="WhatsApp" class="cta-whatsapp-icon" width="32" height="32">
+                    <img src="assets/images/whatsapp.webp" alt="WhatsApp" class="cta-whatsapp-icon" width="32" height="32" loading="lazy" decoding="async">
                     Consultar Ahora
                 </a>
             </div>
@@ -1615,7 +1626,7 @@
        target="_blank"
        aria-label="Contactar por WhatsApp"
        onclick="gtag('event', 'conversion', {'send_to': 'AW-16937247234/oXWWCIHWqucbEILEp4w_'});">
-        <img src="assets/images/whatsapp.webp" alt="WhatsApp" class="floating-whatsapp-icon" width="32" height="32" loading="lazy">
+        <img src="assets/images/whatsapp.webp" alt="WhatsApp" class="floating-whatsapp-icon" width="32" height="32" loading="lazy" decoding="async">
     </a>
 
     <!-- Footer -->
@@ -1624,15 +1635,15 @@
             <p class="footer-brand">Método Historia — Clases Particulares de Historia</p>
             <div class="footer-links">
                 <a href="https://wa.me/5493513115015?text=Hola!%20Quisiera%20consultar%20por%20las%20clases%20particulares%20de%20Historia" class="footer-contact" target="_blank" onclick="gtag('event', 'conversion', {'send_to': 'AW-16937247234/oXWWCIHWqucbEILEp4w_'});">
-                    <img src="assets/images/whatsapp.webp" alt="WhatsApp" class="footer-whatsapp-icon" width="30" height="30" loading="lazy">
+                    <img src="assets/images/whatsapp.webp" alt="WhatsApp" class="footer-whatsapp-icon" width="30" height="30" loading="lazy" decoding="async">
                     WhatsApp: +54 9 351 311-5015
                 </a>
                 <a href="https://www.instagram.com/profe.particular.historia/" class="footer-instagram" target="_blank">
-                    <img src="assets/images/instagram.webp" alt="Instagram" class="footer-instagram-icon" width="20" height="20" loading="lazy">
+                    <img src="assets/images/instagram.webp" alt="Instagram" class="footer-instagram-icon" width="20" height="20" loading="lazy" decoding="async">
                     @profe.particular.historia
                 </a>
                 <a href="https://maps.app.goo.gl/kWSfKjYSQJ3mp1477" class="footer-maps" target="_blank">
-                    <img src="assets/images/maps.svg" alt="Google Maps" class="footer-maps-icon" width="20" height="20" loading="lazy">
+                    <img src="assets/images/maps.svg" alt="Google Maps" class="footer-maps-icon" width="20" height="20" loading="lazy" decoding="async">
                     Google Maps
                 </a>
             </div>
@@ -1704,112 +1715,132 @@
             observer.observe(el);
         });
 
-        // Floating WhatsApp
+        // Floating WhatsApp - use passive scroll listener
         const floatingBtn = document.getElementById('floatingWhatsapp');
+        let lastScrollY = 0;
+        let ticking = false;
+
+        function updateFloatingBtn() {
+            floatingBtn.classList.toggle('visible', lastScrollY > 400);
+            ticking = false;
+        }
+
         window.addEventListener('scroll', () => {
-            floatingBtn.classList.toggle('visible', window.scrollY > 400);
-        });
-
-        // Carousel functionality
-        const carouselTrack = document.querySelector('.carousel-track');
-        const carouselContainer = document.querySelector('.carousel-container');
-        const prevBtn = document.querySelector('.carousel-arrow-prev');
-        const nextBtn = document.querySelector('.carousel-arrow-next');
-
-        if (carouselTrack && carouselContainer) {
-            const totalSlides = 5;
-            const gap = 24;
-            const speed = 0.5; // pixels per frame (~30px per second)
-
-            let currentIndex = 0;
-            let currentOffset = 0;
-            let isManualMove = false;
-            let isPaused = false;
-            let resumeTimeout = null;
-            let animationId = null;
-
-            function getSlideWidth() {
-                const slide = carouselTrack.querySelector('.carousel-slide');
-                return slide ? slide.offsetWidth + gap : 304;
+            lastScrollY = window.scrollY;
+            if (!ticking) {
+                requestAnimationFrame(updateFloatingBtn);
+                ticking = true;
             }
+        }, { passive: true });
 
-            function getMaxOffset() {
-                return getSlideWidth() * totalSlides;
-            }
+        // Defer non-critical carousel initialization
+        function initCarousel() {
+            const carouselTrack = document.querySelector('.carousel-track');
+            const carouselContainer = document.querySelector('.carousel-container');
+            const prevBtn = document.querySelector('.carousel-arrow-prev');
+            const nextBtn = document.querySelector('.carousel-arrow-next');
 
-            function animate() {
-                if (!isPaused && !isManualMove) {
-                    currentOffset -= speed;
-                    if (currentOffset <= -getMaxOffset()) {
-                        currentOffset = 0;
+            if (carouselTrack && carouselContainer) {
+                const totalSlides = 5;
+                const gap = 24;
+                const speed = 0.5;
+
+                let currentIndex = 0;
+                let currentOffset = 0;
+                let isManualMove = false;
+                let isPaused = false;
+                let resumeTimeout = null;
+
+                // Cache slide width to avoid forced reflow during animation
+                let cachedSlideWidth = 304;
+                let cachedMaxOffset = cachedSlideWidth * totalSlides;
+
+                function updateCachedDimensions() {
+                    const slide = carouselTrack.querySelector('.carousel-slide');
+                    if (slide) {
+                        cachedSlideWidth = slide.offsetWidth + gap;
+                        cachedMaxOffset = cachedSlideWidth * totalSlides;
+                    }
+                }
+
+                updateCachedDimensions();
+
+                let resizeTimeout;
+                window.addEventListener('resize', () => {
+                    clearTimeout(resizeTimeout);
+                    resizeTimeout = setTimeout(updateCachedDimensions, 150);
+                }, { passive: true });
+
+                function animate() {
+                    if (!isPaused && !isManualMove) {
+                        currentOffset -= speed;
+                        if (currentOffset <= -cachedMaxOffset) {
+                            currentOffset = 0;
+                            currentIndex = 0;
+                        }
+                        carouselTrack.style.transform = `translateX(${currentOffset}px)`;
+                    }
+                    requestAnimationFrame(animate);
+                }
+
+                requestAnimationFrame(() => {
+                    updateCachedDimensions();
+                    animate();
+                });
+
+                function goToSlide(direction) {
+                    isManualMove = true;
+                    currentIndex += direction;
+
+                    if (currentIndex < 0) {
+                        currentIndex = totalSlides - 1;
+                    } else if (currentIndex >= totalSlides) {
                         currentIndex = 0;
                     }
+
+                    currentOffset = -currentIndex * cachedSlideWidth;
+                    carouselTrack.style.transition = 'transform 0.4s ease-out';
                     carouselTrack.style.transform = `translateX(${currentOffset}px)`;
-                }
-                animationId = requestAnimationFrame(animate);
-            }
 
-            // Start animation
-            animate();
-
-            function goToSlide(direction) {
-                isManualMove = true;
-                const slideWidth = getSlideWidth();
-                const maxOffset = getMaxOffset();
-
-                currentIndex += direction;
-
-                // Handle wrapping
-                if (currentIndex < 0) {
-                    currentIndex = totalSlides - 1;
-                } else if (currentIndex >= totalSlides) {
-                    currentIndex = 0;
+                    clearTimeout(resumeTimeout);
+                    resumeTimeout = setTimeout(() => {
+                        carouselTrack.style.transition = 'none';
+                        isManualMove = false;
+                    }, 2000);
                 }
 
-                currentOffset = -currentIndex * slideWidth;
+                prevBtn?.addEventListener('click', () => goToSlide(-1));
+                nextBtn?.addEventListener('click', () => goToSlide(1));
 
-                carouselTrack.style.transition = 'transform 0.4s ease-out';
-                carouselTrack.style.transform = `translateX(${currentOffset}px)`;
+                let touchStartX = 0;
+                const minSwipeDistance = 50;
 
-                clearTimeout(resumeTimeout);
-                resumeTimeout = setTimeout(() => {
-                    carouselTrack.style.transition = 'none';
-                    isManualMove = false;
-                }, 2000);
-            }
+                carouselTrack.addEventListener('touchstart', (e) => {
+                    isPaused = true;
+                    touchStartX = e.touches[0].clientX;
+                }, { passive: true });
 
-            prevBtn?.addEventListener('click', () => goToSlide(-1));
-            nextBtn?.addEventListener('click', () => goToSlide(1));
+                carouselTrack.addEventListener('touchend', (e) => {
+                    const touchEndX = e.changedTouches[0].clientX;
+                    const swipeDistance = touchEndX - touchStartX;
 
-            // Mobile touch swipe
-            let touchStartX = 0;
-            const minSwipeDistance = 50;
-
-            carouselTrack.addEventListener('touchstart', (e) => {
-                isPaused = true;
-                touchStartX = e.touches[0].clientX;
-            }, { passive: true });
-
-            carouselTrack.addEventListener('touchend', (e) => {
-                const touchEndX = e.changedTouches[0].clientX;
-                const swipeDistance = touchEndX - touchStartX;
-
-                if (Math.abs(swipeDistance) >= minSwipeDistance) {
-                    if (swipeDistance > 0) {
-                        // Swiped right → go to previous
-                        goToSlide(-1);
-                    } else {
-                        // Swiped left → go to next
-                        goToSlide(1);
+                    if (Math.abs(swipeDistance) >= minSwipeDistance) {
+                        goToSlide(swipeDistance > 0 ? -1 : 1);
                     }
-                }
-                isPaused = false;
-            }, { passive: true });
+                    isPaused = false;
+                }, { passive: true });
 
-            // Desktop mouse hold to pause
-            carouselTrack.addEventListener('mousedown', () => { isPaused = true; });
-            carouselTrack.addEventListener('mouseup', () => { isPaused = false; });
-            carouselTrack.addEventListener('mouseleave', () => { isPaused = false; });
+                carouselTrack.addEventListener('mousedown', () => { isPaused = true; }, { passive: true });
+                carouselTrack.addEventListener('mouseup', () => { isPaused = false; }, { passive: true });
+                carouselTrack.addEventListener('mouseleave', () => { isPaused = false; }, { passive: true });
+            }
+        }
+
+        // Use requestIdleCallback to defer carousel init, with setTimeout fallback
+        if ('requestIdleCallback' in window) {
+            requestIdleCallback(initCarousel, { timeout: 200 });
+        } else {
+            setTimeout(initCarousel, 100);
         }
 
         // Activate first timeline marker
