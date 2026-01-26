@@ -35,11 +35,12 @@
     <link rel="dns-prefetch" href="https://ph.metodohistoria.com.ar">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" as="style">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <!-- Fonts loaded asynchronously to avoid render-blocking -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet"></noscript>
     <!-- Preload critical images for LCP -->
     <link rel="preload" href="assets/images/logo-240.webp" as="image" type="image/webp" fetchpriority="high">
-    <link rel="preload" href="assets/images/hero-bg.webp" as="image" type="image/webp">
+    <link rel="preload" href="assets/images/hero-bg.webp" as="image" type="image/webp" fetchpriority="high" imagesrcset="assets/images/hero-bg-small.webp 768w, assets/images/hero-bg.webp 1280w" imagesizes="100vw">
     <link rel="icon" type="image/png" href="/assets/images/favicon/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/assets/images/favicon/favicon.svg" />
     <link rel="shortcut icon" href="/assets/images/favicon/favicon.ico" />
@@ -74,7 +75,7 @@
         }
 
         body {
-            font-family: 'Spectral', Georgia, serif;
+            font-family: 'Spectral', Georgia, 'Times New Roman', serif;
             line-height: 1.75;
             color: var(--deep-sepia);
             background: var(--parchment-cream);
@@ -139,7 +140,7 @@
             top: 50%;
             transform: translateY(-50%) translateX(-10px);
             white-space: nowrap;
-            font-family: 'Spectral', serif;
+            font-family: 'Spectral', Georgia, 'Times New Roman', serif;
             font-size: 0.75rem;
             font-weight: 500;
             letter-spacing: 0.05em;
@@ -185,12 +186,18 @@
             content: '';
             position: absolute;
             inset: 0;
-            background-image: url('assets/images/hero-bg.webp');
+            background-image: url('assets/images/hero-bg-small.webp');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             opacity: 0.12;
             pointer-events: none;
+        }
+
+        @media (min-width: 769px) {
+            .hero::before {
+                background-image: url('assets/images/hero-bg.webp');
+            }
         }
 
         .hero::after {
@@ -212,7 +219,7 @@
 
         .hero-eyebrow {
             display: block;
-            font-family: 'Spectral', serif;
+            font-family: 'Spectral', Georgia, serif;
             font-size: 0.85rem;
             font-weight: 500;
             letter-spacing: 0.1em;
@@ -220,8 +227,6 @@
             color: var(--burnt-umber);
             margin-bottom: 16px;
             text-align: center;
-            opacity: 0;
-            animation: fadeSlideUp 0.8s ease-out 0.2s forwards;
         }
 
         .logo-wrapper {
@@ -249,7 +254,7 @@
         }
 
         .hero h1 {
-            font-family: 'Cormorant Garamond', serif;
+            font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
             font-size: clamp(2.2rem, 6vw, 4.5rem);
             font-weight: 600;
             line-height: 1.1;
@@ -257,8 +262,6 @@
             margin-bottom: 12px;
             letter-spacing: -0.02em;
             text-align: center;
-            opacity: 0;
-            animation: fadeSlideUp 0.8s ease-out 0.3s forwards;
         }
 
         .hero h1 .accent {
@@ -267,7 +270,7 @@
         }
 
         .hero-subtitle {
-            font-family: 'Spectral', serif;
+            font-family: 'Spectral', Georgia, serif;
             font-size: clamp(1.1rem, 2.5vw, 1.4rem);
             font-weight: 400;
             font-style: italic;
@@ -278,8 +281,6 @@
             align-items: center;
             gap: 0;
             margin-bottom: 32px;
-            opacity: 0;
-            animation: fadeSlideUp 0.8s ease-out 0.5s forwards;
         }
 
         .hero-subtitle-separator {
@@ -383,7 +384,7 @@
         }
 
         .value-card h2 {
-            font-family: 'Cormorant Garamond', serif;
+            font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
             font-size: 1.5rem;
             font-weight: 600;
             color: var(--ink-black);
@@ -402,8 +403,6 @@
             display: flex;
             justify-content: center;
             margin-top: 48px;
-            opacity: 0;
-            animation: fadeSlideUp 0.8s ease-out 0.7s forwards;
         }
 
         .cta-primary {
@@ -493,7 +492,7 @@
         }
 
         .section-label {
-            font-family: 'Spectral', serif;
+            font-family: 'Spectral', Georgia, 'Times New Roman', serif;
             font-size: 0.8rem;
             font-weight: 500;
             letter-spacing: 0.2em;
@@ -512,7 +511,7 @@
         }
 
         .section-title {
-            font-family: 'Cormorant Garamond', serif;
+            font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
             font-size: clamp(1.8rem, 4vw, 2.8rem);
             font-weight: 600;
             color: var(--ink-black);
@@ -698,7 +697,7 @@
         }
 
         .about-title {
-            font-family: 'Cormorant Garamond', serif;
+            font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
             font-size: clamp(1.6rem, 3.5vw, 2.2rem);
             font-weight: 600;
             color: var(--ink-black);
@@ -740,7 +739,7 @@
             position: absolute;
             top: -10px;
             left: 20px;
-            font-family: 'Cormorant Garamond', serif;
+            font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
             font-size: 4rem;
             color: var(--aged-gold);
             opacity: 0.3;
@@ -748,7 +747,7 @@
         }
 
         .credentials-title {
-            font-family: 'Cormorant Garamond', serif;
+            font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
             font-size: 1.3rem;
             font-weight: 600;
             color: var(--ink-black);
@@ -821,7 +820,7 @@
         }
 
         .final-cta h2 {
-            font-family: 'Cormorant Garamond', serif;
+            font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
             font-size: clamp(1.6rem, 4vw, 2.5rem);
             font-weight: 600;
             color: var(--parchment-cream);
@@ -830,7 +829,7 @@
         }
 
         .final-cta p {
-            font-family: 'Spectral', serif;
+            font-family: 'Spectral', Georgia, 'Times New Roman', serif;
             font-size: 1.2rem;
             font-style: italic;
             color: var(--parchment-warm);
@@ -858,7 +857,7 @@
         }
 
         .footer-brand {
-            font-family: 'Cormorant Garamond', serif;
+            font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
             font-size: 1.1rem;
             font-weight: 600;
             color: var(--parchment-cream);
@@ -877,7 +876,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            font-family: 'Spectral', serif;
+            font-family: 'Spectral', Georgia, 'Times New Roman', serif;
             font-size: 0.95rem;
             color: var(--aged-gold);
             text-decoration: none;
@@ -898,7 +897,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            font-family: 'Spectral', serif;
+            font-family: 'Spectral', Georgia, 'Times New Roman', serif;
             font-size: 0.95rem;
             color: var(--aged-gold);
             text-decoration: none;
@@ -920,7 +919,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            font-family: 'Spectral', serif;
+            font-family: 'Spectral', Georgia, 'Times New Roman', serif;
             font-size: 0.95rem;
             color: var(--aged-gold);
             text-decoration: none;
@@ -1082,7 +1081,7 @@
             align-items: center;
             gap: 12px;
             padding: 16px 20px;
-            font-family: 'Cormorant Garamond', serif;
+            font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
             font-size: 1.2rem;
             font-weight: 600;
             color: var(--deep-sepia);
@@ -1636,7 +1635,7 @@
                     Google Maps
                 </a>
             </div>
-            <p class="footer-version">v1.0.3</p>
+            <p class="footer-version">v1.0.4</p>
         </div>
     </footer>
 
