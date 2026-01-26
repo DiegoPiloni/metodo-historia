@@ -40,7 +40,10 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" as="style">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <!-- Preload critical images for LCP -->
+    <link rel="preload" href="assets/images/logo-240.webp" as="image" type="image/webp" fetchpriority="high">
     <link rel="icon" type="image/png" href="/assets/images/favicon/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/assets/images/favicon/favicon.svg" />
     <link rel="shortcut icon" href="/assets/images/favicon/favicon.ico" />
@@ -186,7 +189,7 @@
             content: '';
             position: absolute;
             inset: 0;
-            background-image: url('assets/images/hero-bg.jpg');
+            background-image: url('assets/images/hero-bg.webp');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -1391,7 +1394,10 @@
         <div class="container">
             <div class="hero-content">
                 <div class="logo-wrapper">
-                    <img src="assets/images/logo.png" alt="Método Historia" class="logo" oncontextmenu="return false;">
+<picture>
+                        <source srcset="assets/images/logo-240.webp 1x, assets/images/logo-480.webp 2x" type="image/webp">
+                        <img src="assets/images/logo.png" alt="Método Historia" class="logo" width="240" height="240" fetchpriority="high" oncontextmenu="return false;">
+                    </picture>
                 </div>
 
                 <p class="hero-eyebrow">Clases Presenciales en Córdoba y Online en toda Argentina</p>
@@ -1406,7 +1412,7 @@
 
                 <div class="cta-wrapper">
                     <a href="https://wa.me/5493513115015?text=Hola!%20Quisiera%20consultar%20por%20las%20clases%20particulares%20de%20Historia" class="cta-primary" target="_blank" onclick="gtag('event', 'conversion', {'send_to': 'AW-16937247234/oXWWCIHWqucbEILEp4w_'});">
-                        <img src="assets/images/whatsapp.png" alt="WhatsApp" class="cta-whatsapp-icon">
+                        <img src="assets/images/whatsapp.webp" alt="WhatsApp" class="cta-whatsapp-icon" width="32" height="32">
                         Consultar por WhatsApp
                     </a>
                 </div>
@@ -1457,51 +1463,96 @@
                     <div class="carousel-track">
                     <!-- Set 1 -->
                     <div class="carousel-slide">
-                        <img src="assets/images/testimonial-1.jpg" alt="Testimonio 1 - Agradecimiento por las clases">
+                        <picture>
+                            <source srcset="assets/images/testimonial-1.webp" type="image/webp">
+                            <img src="assets/images/testimonial-1.jpg" alt="Testimonio 1 - Agradecimiento por las clases" width="280" height="501" loading="lazy">
+                        </picture>
                     </div>
                     <div class="carousel-slide">
-                        <img src="assets/images/testimonial-2.jpg" alt="Testimonio 2 - Estudiante de secundario">
+                        <picture>
+                            <source srcset="assets/images/testimonial-2.webp" type="image/webp">
+                            <img src="assets/images/testimonial-2.jpg" alt="Testimonio 2 - Estudiante de secundario" width="280" height="501" loading="lazy">
+                        </picture>
                     </div>
                     <div class="carousel-slide">
-                        <img src="assets/images/testimonial-3.jpg" alt="Testimonio 3 - Comentario sobre cronología">
+                        <picture>
+                            <source srcset="assets/images/testimonial-3.webp" type="image/webp">
+                            <img src="assets/images/testimonial-3.jpg" alt="Testimonio 3 - Comentario sobre cronología" width="280" height="503" loading="lazy">
+                        </picture>
                     </div>
                     <div class="carousel-slide">
-                        <img src="assets/images/testimonial-4.jpg" alt="Testimonio 4 - Padre agradecido">
+                        <picture>
+                            <source srcset="assets/images/testimonial-4.webp" type="image/webp">
+                            <img src="assets/images/testimonial-4.jpg" alt="Testimonio 4 - Padre agradecido" width="280" height="498" loading="lazy">
+                        </picture>
                     </div>
                     <div class="carousel-slide">
-                        <img src="assets/images/testimonial-5.jpg" alt="Testimonio 5">
+                        <picture>
+                            <source srcset="assets/images/testimonial-5.webp" type="image/webp">
+                            <img src="assets/images/testimonial-5.jpg" alt="Testimonio 5" width="280" height="500" loading="lazy">
+                        </picture>
                     </div>
                     <!-- Set 2 (duplicate for infinite scroll) -->
                     <div class="carousel-slide">
-                        <img src="assets/images/testimonial-1.jpg" alt="Testimonio 1 - Agradecimiento por las clases">
+                        <picture>
+                            <source srcset="assets/images/testimonial-1.webp" type="image/webp">
+                            <img src="assets/images/testimonial-1.jpg" alt="Testimonio 1 - Agradecimiento por las clases" width="280" height="501" loading="lazy">
+                        </picture>
                     </div>
                     <div class="carousel-slide">
-                        <img src="assets/images/testimonial-2.jpg" alt="Testimonio 2 - Estudiante de secundario">
+                        <picture>
+                            <source srcset="assets/images/testimonial-2.webp" type="image/webp">
+                            <img src="assets/images/testimonial-2.jpg" alt="Testimonio 2 - Estudiante de secundario" width="280" height="501" loading="lazy">
+                        </picture>
                     </div>
                     <div class="carousel-slide">
-                        <img src="assets/images/testimonial-3.jpg" alt="Testimonio 3 - Comentario sobre cronología">
+                        <picture>
+                            <source srcset="assets/images/testimonial-3.webp" type="image/webp">
+                            <img src="assets/images/testimonial-3.jpg" alt="Testimonio 3 - Comentario sobre cronología" width="280" height="503" loading="lazy">
+                        </picture>
                     </div>
                     <div class="carousel-slide">
-                        <img src="assets/images/testimonial-4.jpg" alt="Testimonio 4 - Padre agradecido">
+                        <picture>
+                            <source srcset="assets/images/testimonial-4.webp" type="image/webp">
+                            <img src="assets/images/testimonial-4.jpg" alt="Testimonio 4 - Padre agradecido" width="280" height="498" loading="lazy">
+                        </picture>
                     </div>
                     <div class="carousel-slide">
-                        <img src="assets/images/testimonial-5.jpg" alt="Testimonio 5">
+                        <picture>
+                            <source srcset="assets/images/testimonial-5.webp" type="image/webp">
+                            <img src="assets/images/testimonial-5.jpg" alt="Testimonio 5" width="280" height="500" loading="lazy">
+                        </picture>
                     </div>
                     <!-- Set 3 (duplicate for infinite scroll) -->
                     <div class="carousel-slide">
-                        <img src="assets/images/testimonial-1.jpg" alt="Testimonio 1 - Agradecimiento por las clases">
+                        <picture>
+                            <source srcset="assets/images/testimonial-1.webp" type="image/webp">
+                            <img src="assets/images/testimonial-1.jpg" alt="Testimonio 1 - Agradecimiento por las clases" width="280" height="501" loading="lazy">
+                        </picture>
                     </div>
                     <div class="carousel-slide">
-                        <img src="assets/images/testimonial-2.jpg" alt="Testimonio 2 - Estudiante de secundario">
+                        <picture>
+                            <source srcset="assets/images/testimonial-2.webp" type="image/webp">
+                            <img src="assets/images/testimonial-2.jpg" alt="Testimonio 2 - Estudiante de secundario" width="280" height="501" loading="lazy">
+                        </picture>
                     </div>
                     <div class="carousel-slide">
-                        <img src="assets/images/testimonial-3.jpg" alt="Testimonio 3 - Comentario sobre cronología">
+                        <picture>
+                            <source srcset="assets/images/testimonial-3.webp" type="image/webp">
+                            <img src="assets/images/testimonial-3.jpg" alt="Testimonio 3 - Comentario sobre cronología" width="280" height="503" loading="lazy">
+                        </picture>
                     </div>
                     <div class="carousel-slide">
-                        <img src="assets/images/testimonial-4.jpg" alt="Testimonio 4 - Padre agradecido">
+                        <picture>
+                            <source srcset="assets/images/testimonial-4.webp" type="image/webp">
+                            <img src="assets/images/testimonial-4.jpg" alt="Testimonio 4 - Padre agradecido" width="280" height="498" loading="lazy">
+                        </picture>
                     </div>
                     <div class="carousel-slide">
-                        <img src="assets/images/testimonial-5.jpg" alt="Testimonio 5">
+                        <picture>
+                            <source srcset="assets/images/testimonial-5.webp" type="image/webp">
+                            <img src="assets/images/testimonial-5.jpg" alt="Testimonio 5" width="280" height="500" loading="lazy">
+                        </picture>
                     </div>
                     </div>
                 </div>
@@ -1520,7 +1571,7 @@
             <div class="about-card">
                 <header class="about-header">
                     <h2 class="about-title">Sobre la Profesora Agustina</h2>
-                    <img src="assets/images/agus.webp" alt="Profesora Agustina" class="about-photo" oncontextmenu="return false;">
+                    <img src="assets/images/agus.webp" alt="Profesora Agustina" class="about-photo" width="140" height="140" loading="lazy" oncontextmenu="return false;">
                 </header>
 
                 <p class="about-intro">
@@ -1550,7 +1601,7 @@
                 <h2>¿Tu hijo necesita ayuda con Historia?</h2>
                 <p>Conseguí que apruebe con explicaciones que realmente entienda</p>
                 <a href="https://wa.me/5493513115015?text=Hola!%20Quisiera%20consultar%20por%20las%20clases%20particulares%20de%20Historia" class="cta-primary" target="_blank" onclick="gtag('event', 'conversion', {'send_to': 'AW-16937247234/oXWWCIHWqucbEILEp4w_'});">
-                    <img src="assets/images/whatsapp.png" alt="WhatsApp" class="cta-whatsapp-icon">
+                    <img src="assets/images/whatsapp.webp" alt="WhatsApp" class="cta-whatsapp-icon" width="32" height="32">
                     Consultar Ahora
                 </a>
             </div>
@@ -1564,7 +1615,7 @@
        target="_blank"
        aria-label="Contactar por WhatsApp"
        onclick="gtag('event', 'conversion', {'send_to': 'AW-16937247234/oXWWCIHWqucbEILEp4w_'});">
-        <img src="assets/images/whatsapp.png" alt="WhatsApp" class="floating-whatsapp-icon">
+        <img src="assets/images/whatsapp.webp" alt="WhatsApp" class="floating-whatsapp-icon" width="32" height="32" loading="lazy">
     </a>
 
     <!-- Footer -->
@@ -1573,15 +1624,15 @@
             <p class="footer-brand">Método Historia — Clases Particulares de Historia</p>
             <div class="footer-links">
                 <a href="https://wa.me/5493513115015?text=Hola!%20Quisiera%20consultar%20por%20las%20clases%20particulares%20de%20Historia" class="footer-contact" target="_blank" onclick="gtag('event', 'conversion', {'send_to': 'AW-16937247234/oXWWCIHWqucbEILEp4w_'});">
-                    <img src="assets/images/whatsapp.png" alt="WhatsApp" class="footer-whatsapp-icon">
+                    <img src="assets/images/whatsapp.webp" alt="WhatsApp" class="footer-whatsapp-icon" width="30" height="30" loading="lazy">
                     WhatsApp: +54 9 351 311-5015
                 </a>
                 <a href="https://www.instagram.com/profe.particular.historia/" class="footer-instagram" target="_blank">
-                    <img src="assets/images/instagram.png" alt="Instagram" class="footer-instagram-icon">
+                    <img src="assets/images/instagram.webp" alt="Instagram" class="footer-instagram-icon" width="20" height="20" loading="lazy">
                     @profe.particular.historia
                 </a>
                 <a href="https://maps.app.goo.gl/kWSfKjYSQJ3mp1477" class="footer-maps" target="_blank">
-                    <img src="assets/images/maps.svg" alt="Google Maps" class="footer-maps-icon">
+                    <img src="assets/images/maps.svg" alt="Google Maps" class="footer-maps-icon" width="20" height="20" loading="lazy">
                     Google Maps
                 </a>
             </div>
