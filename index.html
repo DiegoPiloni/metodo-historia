@@ -1243,6 +1243,10 @@
                 justify-content: center;
                 text-align: center;
             }
+
+            .value-card:nth-child(3) {
+                display: none;
+            }
         }
 
         /* Reduced motion */
@@ -1345,15 +1349,15 @@
                 </a>
             </li>
             <li>
-                <a href="#testimonios" class="mobile-menu-link">
-                    <span class="mobile-menu-icon">💬</span>
-                    Testimonios
-                </a>
-            </li>
-            <li>
                 <a href="#profesora" class="mobile-menu-link">
                     <span class="mobile-menu-icon">👩‍🏫</span>
                     Profesora
+                </a>
+            </li>
+            <li>
+                <a href="#testimonios" class="mobile-menu-link">
+                    <span class="mobile-menu-icon">💬</span>
+                    Testimonios
                 </a>
             </li>
             <li>
@@ -1370,11 +1374,11 @@
         <div class="timeline-marker" style="top: 15%;" data-section="metodo">
             <a href="#metodo" class="timeline-label">Método Historia</a>
         </div>
-        <div class="timeline-marker" style="top: 40%;" data-section="testimonios">
-            <a href="#testimonios" class="timeline-label">Testimonios</a>
-        </div>
-        <div class="timeline-marker" style="top: 65%;" data-section="profesora">
+        <div class="timeline-marker" style="top: 40%;" data-section="profesora">
             <a href="#profesora" class="timeline-label">Profesora</a>
+        </div>
+        <div class="timeline-marker" style="top: 65%;" data-section="testimonios">
+            <a href="#testimonios" class="timeline-label">Testimonios</a>
         </div>
         <div class="timeline-marker" style="top: 85%;" data-section="cta">
             <a href="#redes" class="timeline-label">Redes</a>
@@ -1435,6 +1439,39 @@
                         </div>
                     </div>
                 </section>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section" id="profesora">
+        <div class="about-container">
+            <div class="about-card">
+                <header class="about-header">
+                    <h2 class="about-title">Sobre la Profesora Agustina</h2>
+<picture>
+                        <source media="(max-width: 767px)" srcset="assets/images/agus-140.webp" type="image/webp">
+                        <source srcset="assets/images/agus-140.webp 1x, assets/images/agus-280.webp 2x" type="image/webp">
+                        <img src="assets/images/agus-140.webp" alt="Profesora Agustina" class="about-photo" width="140" height="140" loading="lazy" oncontextmenu="return false;">
+                    </picture>
+                </header>
+
+                <p class="about-intro">
+                    Con más de 5 años de experiencia enseñando Historia, la profesora Agustina se destaca por su capacidad de hacer comprensible incluso los temas más complejos.
+                </p>
+
+                <div class="credentials-box">
+                    <h3 class="credentials-title">Formación Académica</h3>
+                    <ul class="credentials-list">
+                        <li><strong>Licenciada en Historia (2024)</strong> — Universidad Nacional de Córdoba (UNC)</li>
+                        <li><strong>Profesora en Historia (2020)</strong> — Universidad Nacional de Córdoba (UNC)</li>
+                        <li><strong>+5 años de experiencia</strong> dando clases particulares</li>
+                    </ul>
+                </div>
+
+                <p class="about-conclusion">
+                    Su metodología se basa en explicaciones claras y sencillas, adaptadas a cada estudiante, creando un ambiente de confianza donde podés preguntar sin miedo.
+                </p>
             </div>
         </div>
     </section>
@@ -1555,39 +1592,6 @@
                         <polyline points="9 6 15 12 9 18"></polyline>
                     </svg>
                 </button>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section class="about-section" id="profesora">
-        <div class="about-container">
-            <div class="about-card">
-                <header class="about-header">
-                    <h2 class="about-title">Sobre la Profesora Agustina</h2>
-<picture>
-                        <source media="(max-width: 767px)" srcset="assets/images/agus-140.webp" type="image/webp">
-                        <source srcset="assets/images/agus-140.webp 1x, assets/images/agus-280.webp 2x" type="image/webp">
-                        <img src="assets/images/agus-140.webp" alt="Profesora Agustina" class="about-photo" width="140" height="140" loading="lazy" oncontextmenu="return false;">
-                    </picture>
-                </header>
-
-                <p class="about-intro">
-                    Con más de 5 años de experiencia enseñando Historia, la profesora Agustina se destaca por su capacidad de hacer comprensible incluso los temas más complejos.
-                </p>
-
-                <div class="credentials-box">
-                    <h3 class="credentials-title">Formación Académica</h3>
-                    <ul class="credentials-list">
-                        <li><strong>Licenciada en Historia (2024)</strong> — Universidad Nacional de Córdoba (UNC)</li>
-                        <li><strong>Profesora en Historia (2020)</strong> — Universidad Nacional de Córdoba (UNC)</li>
-                        <li><strong>+5 años de experiencia</strong> dando clases particulares</li>
-                    </ul>
-                </div>
-
-                <p class="about-conclusion">
-                    Su metodología se basa en explicaciones claras y sencillas, adaptadas a cada estudiante, creando un ambiente de confianza donde podés preguntar sin miedo.
-                </p>
             </div>
         </div>
     </section>
